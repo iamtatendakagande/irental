@@ -1,8 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session
-from flask_mysqldb import MySQL
-import MySQLdb.cursors
-import MySQLdb.cursors, re, hashlib
-import pickle
+import re, hashlib
+from source.databaseConnection import Database
+from source.uploadCoordinate import UploadFile
 
 #from machine.HarareRentPredictionModel import userInput
 
@@ -12,12 +11,9 @@ app = Flask(__name__, template_folder='./public')
 # Change this to your secret key (it can be anything, it's for extra protection)
 app.secret_key = 'your secret key'
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'edmore1'
-app.config['MYSQL_DB'] = 'irental'
- 
-mysql = MySQL(app)
+# Database Connection
+connection = Database(host="localhost", user="root", password="edmore1", database="irental")
+connection.connect()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -29,9 +25,10 @@ def index():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     if (request.method == "POST"):
-
-
-        
+        coordinates = request.form['coordinates']
+        file = UploadFile()
+        path = file.filePath(coordinates)
+        file.upload(path)
         return render_template('rental/upload.html')
     else:
         return render_template('rental/upload.html')
@@ -39,7 +36,7 @@ def upload():
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if (request.method == "POST"):
-        # Loading model to compare the results
+        #Loading model to compare the results
         #pickle.load(open('HarareRentPredictionModel.pkl','rb'))
         
         suburb = request.form['suburb']
@@ -118,12 +115,9 @@ def signin():
         hash = hashlib.sha1(hash.encode())
         password = hash.hexdigest()
 
-        # Check if users exists using MySQLusers
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM users WHERE email = %s AND password = %s', [email, password])
+        users =  connection.execute_query('SELECT * FROM users WHERE email = %s AND password = %s', [email, password])
         # Fetch one record and return the result
-        users = cursor.fetchone()
-
+      
         if users:   
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
@@ -157,9 +151,8 @@ def register():
             email = request.form['email']
 
             # Check if user exists using MySQL
-            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('SELECT * FROM users WHERE email = %s', [email] )
-            user = cursor.fetchone()
+            user =  connection.execute_query('SELECT * FROM users WHERE email = %s', [email] )
+         
             # If user exists show error and validation checks
             if user:
                 msg = 'user already exists!'
@@ -175,8 +168,7 @@ def register():
                 hash = hashlib.sha1(hash.encode())
                 password = hash.hexdigest()
                 # user doesn't exist, and the form data is valid, so insert the new user into the users table
-                cursor.execute('INSERT INTO users(name, email, password) VALUES (%s, %s, %s)', [name, email, password])
-                mysql.connection.commit()
+                connection.execute_query('INSERT INTO users(name, email, password) VALUES (%s, %s, %s)', [name, email, password])
                 msg = 'You have successfully registered!'
         elif request.method == 'POST':
             # Form is empty... (no POST data)
