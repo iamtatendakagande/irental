@@ -29,8 +29,10 @@ class rentalPrediction:
                 print("An error occurred:", e)
 
     def preprocess_text(input):
-        vectorizer = TfidfVectorizer()  # Or TfidfVectorizer for TF-IDF
-        preprocessed_text = vectorizer.fit_transform(input)
+        LabelEncoding = LabelEncoder()
+        for col in input.select_dtypes(include=['object']).columns:
+            input[col]= LabelEncoding.fit_transform(input[col])
+        preprocessed_text = input
         print(preprocessed_text)
         return preprocessed_text
      
@@ -41,10 +43,6 @@ class rentalPrediction:
         print(data.head())
         print(data.tail())
         print(data.shape)
-
-        TARGET_FEATURE = 'price'
-        Y = data[TARGET_FEATURE]
-        print(Y.head())
 
         data.info()
         data.describe()
@@ -72,7 +70,6 @@ class rentalPrediction:
         corr_
 
         # Encoding ...
-        from sklearn.preprocessing import LabelEncoder
         LabelEncoding= LabelEncoder()
         for col in data.select_dtypes(include=['object']).columns:
             data[col]= LabelEncoding.fit_transform(data[col])
@@ -83,7 +80,7 @@ class rentalPrediction:
         training_features.remove('price')
 
         # show the final list
-        training_features
+        print(training_features)
 
         from sklearn.preprocessing import MinMaxScaler
 
@@ -93,10 +90,11 @@ class rentalPrediction:
 
         #Create `X` data and assignning from `training feature` columns from `data` and make it normalized
         X = minMaxNorm.transform(data[training_features]) 
-        X = minMaxNorm.transform(data[training_features]) 
 
         Y = data['price']  
         Y
+        test_X = preprocessed_input
+        print(test_X)
 
         from sklearn.model_selection import train_test_split
         from sklearn.ensemble import  AdaBoostRegressor
@@ -107,15 +105,18 @@ class rentalPrediction:
         print("Train size: ", train_X.shape, train_Y.shape)
         print("Test size: ", test_X.shape, test_Y.shape)
 
+        print("User input size: ", preprocessed_input.shape)
         # Creating Model
         ADB_model = AdaBoostRegressor()
         # Model Fitting
         ADB_model.fit(train_X, train_Y)
-        # Model Prediction
-        #ADB_model_predicted = ADB_model.predict(test_X)
-        ADB_model_predicted = ADB_model.predict(preprocessed_input)
         # Model Score
         ADB_model_score = ADB_model.score(test_X, test_Y)
+
+        # Model Prediction
+        ADB_model_predicted = ADB_model.predict(test_X)
+        #ADB_model_predicted = ADB_model.predict(preprocessed_input)
+
 
         # find Mean Absolute Error
         mae = mean_absolute_error(test_Y, ADB_model_predicted)
