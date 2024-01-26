@@ -22,19 +22,19 @@ class rentalPrediction:
 
             print(input)          
             print(input.shape)
-            preprocessed_text = rentalPrediction.preprocess_text(input)
-            price = rentalPrediction.predict(preprocessed_text)
-            return input
+            preprocessed_input = rentalPrediction.preprocess_text(input)
+            price = rentalPrediction.predict(preprocessed_input)
+            return price
         except Exception as e:
                 print("An error occurred:", e)
 
     def preprocess_text(input):
-        vectorizer = CountVectorizer()  # Or TfidfVectorizer for TF-IDF
-        preprocessed_text =  vectorizer.fit_transform(input)
+        vectorizer = TfidfVectorizer()  # Or TfidfVectorizer for TF-IDF
+        preprocessed_text = vectorizer.fit_transform(input)
         print(preprocessed_text)
         return preprocessed_text
      
-    def predict(input):
+    def predict(preprocessed_input):
         # Read the dataset
         data = pd.read_csv('./machine/updated.csv')
         
@@ -77,16 +77,6 @@ class rentalPrediction:
         for col in data.select_dtypes(include=['object']).columns:
             data[col]= LabelEncoding.fit_transform(data[col])
 
-        correlation_mat = data.corr()
-
-        mask = np.zeros_like(correlation_mat)
-        mask[np.triu_indices_from(mask)] = True
-        with sns.axes_style("white"):
-            #f, ax = plt.subplots(figsize=(7,6))
-            f, ax = plt.subplots(figsize=(15,10))
-            ax = sns.heatmap(correlation_mat,
-        mask=mask,annot=True,cmap="YlGnBu")
-            
         training_features = list(numeric_features) + list(categorical_features)
 
         # Remove 'Price' Feature from list
@@ -123,7 +113,7 @@ class rentalPrediction:
         ADB_model.fit(train_X, train_Y)
         # Model Prediction
         #ADB_model_predicted = ADB_model.predict(test_X)
-        ADB_model_predicted = ADB_model.predict(input)
+        ADB_model_predicted = ADB_model.predict(preprocessed_input)
         # Model Score
         ADB_model_score = ADB_model.score(test_X, test_Y)
 
@@ -133,3 +123,6 @@ class rentalPrediction:
         print('model_name',ADB_model.__class__.__name__)
         print('prediction_score', ADB_model_score)
         print('mean_absolute_error', mae)
+
+        print('prediction is', ADB_model_predicted)
+        return ADB_model_predicted
