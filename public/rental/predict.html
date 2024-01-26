@@ -6,13 +6,13 @@
     <form class="main-form" id="main-form" method="POST" action="/predict" role="form">
             <div class="form-group">
                     <label for="amount">amount:</label>
-                    <input id="amount" type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" autocomplete="amount" autofocus>
+                    <input id="amount" type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" required>
             </div>
 
 
             <div class="form-group">
                 <label for="surburb">surburb:</label>
-                <input id="surburb" type="text" class="form-control @error('surburb') is-invalid @enderror" name="surburb" autocomplete="current-surburb">
+                <input id="surburb" type="text" class="form-control @error('surburb') is-invalid @enderror" name="surburb" required>
             </div> 
 
         <div class="form-group">

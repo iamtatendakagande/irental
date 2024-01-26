@@ -1,35 +1,89 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 import re, hashlib
 from source.databaseConnection import Database
-from source.uploadCoordinate import UploadFile
+import csv
+from machine.HarareRentPredictionModel import rentalPrediction
 
-#from machine.HarareRentPredictionModel import userInput
 
 
 app = Flask(__name__, template_folder='./public')
+# enable debugging mode
+app.config["DEBUG"] = True
+# Upload folder
+app.config['UPLOAD_FOLDER'] =  'static/uploads'
 
 # Change this to your secret key (it can be anything, it's for extra protection)
 app.secret_key = 'your secret key'
 
 # Database Connection
-connection = Database(host="localhost", user="root", password="edmore1", database="irental")
+connection = Database(host="localhost", user="root", password="", database="irental")
 connection.connect()
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if (request.method == "POST"):
-        return render_template('index.html')
+        try:
+            suburb = request.form.get('suburb')
+            density =  "Low"
+            toilet_type = request.form.get('toilet_type')
+            rooms = request.form.get('rooms')
+            bedrooms = request.form.get('bedrooms')
+            toilets = request.form.get('toilets')
+            property_type = request.form.get('property')
+            ensuites = request.form.get('ensuites')
+            local_authority = "Harare Municipality"
+            ward = 17
+            garage = request.form.get('garage')
+            pool = request.form.get('pool')
+            fixtures = request.form.get('fixtures')
+            cottage = request.form.get('cottage')
+            power = request.form.get('power')
+            power_backup = request.form.get('power_backup')
+            water = request.form.get('water')
+            water_backup = request.form.get('water_backup')
+            gated = request.form.get('gated')
+            garden = request.form.get('garden')
+        
+            features = [property_type, suburb, density, toilet_type, rooms, bedrooms, toilets, ensuites, local_authority, ward, garage, pool, 
+                    fixtures, cottage, power, power_backup, water, water_backup, gated, garden]
+            
+            print(features)
+            rentalPrediction.userInput(features)
+        except Exception as e:
+            print("An error occurred:", e)
+
+        return render_template('rental/output.html')
     else:
         return render_template('index.html')
     
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     if (request.method == "POST"):
-        coordinates = request.form['coordinates']
-        file = UploadFile()
-        path = file.filePath(coordinates)
-        file.upload(path)
-        return render_template('rental/upload.html')
+        import os
+        import pandas as pd 
+        import csv
+        file = request.files['coordinates']
+        if file.filename != '':
+            try:
+                path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+                # set the file path
+                file.save(path)
+                # Open the CSV file in read mode
+                with open(path, 'r') as file:
+                    csv_reader = csv.reader(file)
+                    # Skip the header row (if present)
+                    next(csv_reader)
+                    # Iterate through each row in the CSV file
+                    for row in csv_reader:
+                        # Execute the query using executemany for efficiency
+                        data = [row[0], row[1] ,row[2], row[3]] 
+                        print(data[0])
+                        connection.populate("INSERT INTO coordinates(address, authority, latitude, longitude) VALUES ('{}', '{}', '{}','{}')".format(data[0], data[1] ,data[2], data[3]))
+            except Exception as e:
+                     print("An error occurred:", e)
+                        
+        return render_template('rental/upload.html')    
     else:
         return render_template('rental/upload.html')
 
@@ -37,32 +91,7 @@ def upload():
 def predict():
     if (request.method == "POST"):
         #Loading model to compare the results
-        #pickle.load(open('HarareRentPredictionModel.pkl','rb'))
-        
-        suburb = request.form['suburb']
-        density =  "Low"
-        toilets_type = "Self"
-        rooms = request.form['rooms']
-        bedroom = request.form['bedroom']
-        toilets = request.form['toilets']
-        ensuite = 0
-        local_authority = "Harare Municipality"
-        ward = 17
-        garage = 1
-        swimming_pool = 0
-        fixtures_fittings = 1
-        cottage = 1
-        power = 1
-        power_backup = 1
-        water = 1
-        water_backup = 1
-        gated_community = 0
-        garden_area = 1
-        
-        features =  [ suburb, density, toilets_type, rooms, bedroom, toilets, ensuite, local_authority, ward, garage, swimming_pool, 
-                     fixtures_fittings, cottage, power, power_backup, water, water_backup, gated_community, garden_area]
-
-        #features = userInput(features)
+        #pickle.load(open('HarareRentPredictionModel.pkl','rb'
 
         return render_template('rental/predict.html')
     else:
@@ -77,7 +106,7 @@ def map():
     longitude = 31.053056
 
     # Create a base map
-    map = folium.Map(location=[latitude, longitude], zoom_start=11)
+    map = folium.Map(location=[latitude, longitude], zoom_start=11, prefer_canvas=True)
 
     # Coordinate points (replace with your actual list of points)
     points = [
@@ -86,19 +115,38 @@ def map():
         # ... Add more points as needed
     ]
 
+    try:
+        path = "./static/uploads/coordinates.csv"
+        # Open the CSV file in read mode
+        with open(path, 'r') as file:
+            csv_reader = csv.reader(file)
+            # Skip the header row (if present)
+            next(csv_reader)
+            # Iterate through each row in the CSV file
+            points = []
+            for row in csv_reader:
+                # Execute the query using executemany for efficiency
+                points.append([row[0], row[2], row[3]])
+            print(points)
+    except Exception as e:
+                print("An error occurred:", e)
+
     # Add markers for each point
     for point in points:
-        folium.Marker(location=point).add_to(map)
-
-
+        print(point)
+        folium.Marker(
+        location= [point[1], point[2]],
+        popup=point[0],
+    ).add_to(map)
     # Display the map
     file_name = 'public/rental/'
     map.save(file_name+"harare.html")  # Save the map as an HTML file
+
     return render_template('rental/map.html')
 
 @app.route('/harare')
 def showMap():
-    return render_template('rental/harare.html')
+   return render_template('rental/harare.html')
 
 @app.route('/show')
 def show():
@@ -108,8 +156,8 @@ def show():
 def signin():
     if (request.method == "POST"):
         # Create variables for easy access
-        email = request.form['email']
-        password = request.form['password']
+        email = request.form.get['email']
+        password = request.form.get['password']
         # Retrieve the hashed password
         hash = password + app.secret_key
         hash = hashlib.sha1(hash.encode())
@@ -144,11 +192,11 @@ def register():
         # Output message if something goes wrong...
         msg = ''
         # Check if "email", "password" and "email" POST requests exist (user submitted form)
-        if request.method == 'POST' and 'email' in request.form and 'password' in request.form and 'email' in request.form:
+        if request.method == 'POST' and 'email' in request.form.get and 'password' in request.form.get and 'email' in request.form.get:
             # Create variables for easy access
-            name = request.form['name']
-            password = request.form['password']
-            email = request.form['email']
+            name = request.form.get['name']
+            password = request.form.get['password']
+            email = request.form.get['email']
 
             # Check if user exists using MySQL
             user =  connection.execute_query('SELECT * FROM users WHERE email = %s', [email] )

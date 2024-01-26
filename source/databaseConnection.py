@@ -22,9 +22,21 @@ class Database:
         except Exception as error:
             print("Failed to connect to database:", error)
 
-    def execute_query(self, query):
+    def populate(self, query):
         try:
-            cursor = self.connection.cursor()
+            cursor = self.connection.cursor(buffered=True)
+            cursor.execute(query)
+            #results = cursor.fetchall()
+            self.connection.commit() 
+            cursor.close()
+            #return results
+        except Exception as error:
+            print("Failed to execute query:", error)
+            return None
+        
+    def posted(self, query):
+        try:
+            cursor = self.connection.cursor(buffered=True)
             cursor.execute(query)
             results = cursor.fetchall()
             cursor.close()
@@ -32,7 +44,7 @@ class Database:
         except Exception as error:
             print("Failed to execute query:", error)
             return None
-
+        
     def close_connection(self):
         if self.connection:
             self.connection.close()

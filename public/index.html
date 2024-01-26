@@ -3,31 +3,133 @@
 {% block body %}
 
 <div class="col-xs-12 col-sm-12 col-lg-4 col-lg-offset-4">
-    <form class="main-form" id="main-form" method="POST" action="/" role="form">
-            <div class="form-group">
-                    <label for="rooms">rooms:</label>
-                    <input id="rooms" type="number" class="form-control @error('rooms') is-invalid @enderror" name="rooms" autocomplete="rooms" autofocus>
-            </div>
+      <form class="main-form" id="main-form" method="POST" action="/" role="form" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="properties">type of property:</label>
+              <select class="form-control" name="properties" id="properties" required aria-required="true">
+                    <option value="">select one:</option>
+                    <option value="CLUSTER">CLUSTER</option>
+                    <option value="FLAT">FLAT</option>
+                    <option value="HOUSE">HOUSE</option>
+              </select>
+        </div>
 
             <div class="form-group">
+                    <label for="rooms">rooms:</label>
+                    <input id="rooms" type="number" class="form-control @error('rooms') is-invalid @enderror" name="rooms" required>
+            </div>
+            
+            <div class="form-group">
                 <label for="bedrooms">bedrooms:</label>
-                <input id="bedrooms" type="number" class="form-control @error('rooms') is-invalid @enderror" name="bedrooms" autocomplete="bedrooms">
+                <input id="bedrooms" type="number" class="form-control @error('bedrooms') is-invalid @enderror" name="bedrooms" required>
             </div>
 
             <div class="form-group">
                 <label for="toilets">toilets:</label>
-                <input id="toilets" type="number" class="form-control @error('toilets') is-invalid @enderror" name="toilets" autocomplete="toilets">
+                <input id="toilets" type="number" class="form-control @error('toilets') is-invalid @enderror" name="toilets" required>
             </div>
 
             <div class="form-group">
-                <label for="property">property:</label>
-                <input id="property" type="text" class="form-control @error('property') is-invalid @enderror" name="property" autocomplete="current-property">
+                <label for="ensuites">ensuites:</label>
+                <input id="ensuites" type="number" class="form-control @error('ensuites') is-invalid @enderror" name="ensuites" required>
+            </div>
+
+            <div class="form-group">
+                  <label for="toilet_type">type of toilet:</label>
+                    <select class="form-control" name="toilet_type" id="toilet_type" required aria-required="true">
+                          <option value="">select one:</option>
+                          <option value="SHARED">SHARED</option>
+                          <option value="SELF">SELF</option>
+                    </select>
+            </div>
+
+            <div class="form-group">
+                <label for="garage">garage parking spaces:</label>
+                <input id="garage" type="number" class="form-control @error('garage') is-invalid @enderror" name="garage" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cottage">cottage rooms:</label>
+                <input id="cottage" type="number" class="form-control @error('cottage') is-invalid @enderror" name="cottage" required>
             </div>
 
             <div class="form-group">
                 <label for="surburb">surburb:</label>
-                <input id="surburb" type="text" class="form-control @error('surburb') is-invalid @enderror" name="surburb" autocomplete="current-surburb">
+                <input id="surburb" type="text" class="form-control @error('surburb') is-invalid @enderror" name="surburb" required>
             </div> 
+         
+            <div class="form-group">
+                <label for="pool">swimming pool:</label>
+                  <select class="form-control" name="pool" id="pool" required aria-required="true">
+                        <option value="">select one:</option>
+                        <option value="1">YES</option>
+                        <option value="0">NO</option>
+                  </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fixtures">fixtures and fittings:</label>
+                  <select class="form-control" name="fixtures" id="fixtures" required aria-required="true">
+                        <option value="">select one:</option>
+                        <option value="1">YES</option>
+                        <option value="0">NO</option>
+                  </select>
+            </div>
+
+            <div class="form-group">
+                <label for="power">electricity avaliability:</label>
+                  <select class="form-control" name="power" id="power" required aria-required="true">
+                        <option value="">select one:</option>
+                        <option value="1">YES</option>
+                        <option value="0">NO</option>
+                  </select>
+            </div>
+
+            <div class="form-group">
+                <label for="power_backup">electricity backup:</label>
+                  <select class="form-control" name="power_backup" id="power_backup" required aria-required="true">
+                        <option value="">select one:</option>
+                        <option value="1">YES</option>
+                        <option value="0">NO</option>
+                  </select>
+            </div>
+
+            <div class="form-group">
+                <label for="water">council water suppy:</label>
+                  <select class="form-control" name="water" id="water" required aria-required="true">
+                        <option value="">select one:</option>
+                        <option value="1">YES</option>
+                        <option value="0">NO</option>
+                  </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="water_backup">water suppy backup:</label>
+                  <select class="form-control" name="water_backup" id="water_backup" required aria-required="true">
+                        <option value="">select one:</option>
+                        <option value="1">YES</option>
+                        <option value="0">NO</option>
+                  </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gated_community">gated community:</label>
+                  <select class="form-control" name="gated" id="gated" required aria-required="true">
+                        <option value="">select one:</option>
+                        <option value="1">YES</option>
+                        <option value="0">NO</option>
+                  </select>
+            </div>
+
+            <div class="form-group">
+                <label for="garden_area">garden area:</label>
+                  <select class="form-control" name="garden" id="garden" required aria-required="true">
+                        <option value="">select one:</option>
+                        <option value="1">YES</option>
+                        <option value="0">NO</option>
+                  </select>
+            </div>
 
         <div class="form-group">
         <div class="row-sm-offset-4-sm-7">

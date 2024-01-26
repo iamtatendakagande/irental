@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np 
 import seaborn as sns
 from matplotlib import pyplot as plt
+from sklearn.preprocessing import LabelEncoder
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer  # For numerical representation
 
 # Create a machine learning model.
 class rentalPrediction:
@@ -12,15 +14,25 @@ class rentalPrediction:
         print(self.features)
 
     def userInput(features):
-        input = pd.DataFrame(features, ['suburb', 'density', 'type_of_property', 'rooms', 'bedroom', 'toilets', 'ensuite', 'toilets_type',
-                                   'local_authority', 'ward', 'garage', 'swimming_pool',
-                                  'fixtures_fittings', 'cottage', 'power', 'power_backup', 'water',
-                                  'water_backup', 'gated_community', 'garden_area']).T
-        
-        print(input)
-        print(input.shape)
-        price = rentalPrediction.predict(input)
-        return price
+        try:
+            input = pd.DataFrame(features, ['suburb', 'density', 'type_of_property', 'rooms', 'bedroom', 'toilets', 'ensuite', 'toilets_type',
+                                    'local_authority', 'ward', 'garage', 'swimming_pool',
+                                    'fixtures_fittings', 'cottage', 'power', 'power_backup', 'water',
+                                    'water_backup', 'gated_community', 'garden_area']).T
+
+            print(input)          
+            print(input.shape)
+            preprocessed_text = rentalPrediction.preprocess_text(input)
+            price = rentalPrediction.predict(preprocessed_text)
+            return input
+        except Exception as e:
+                print("An error occurred:", e)
+
+    def preprocess_text(input):
+        vectorizer = CountVectorizer()  # Or TfidfVectorizer for TF-IDF
+        preprocessed_text =  vectorizer.fit_transform(input)
+        print(preprocessed_text)
+        return preprocessed_text
      
     def predict(input):
         # Read the dataset
@@ -121,30 +133,3 @@ class rentalPrediction:
         print('model_name',ADB_model.__class__.__name__)
         print('prediction_score', ADB_model_score)
         print('mean_absolute_error', mae)
-
-suburb = 1
-density =  1
-type_of_property = 1
-toilets_type = 1
-rooms = 2
-bedroom = 3
-toilets = 4
-ensuite = 0
-local_authority = 1
-ward = 17
-garage = 1
-swimming_pool = 0
-fixtures_fittings = 1
-cottage = 0
-power = 0
-power_backup = 1
-water = 1
-water_backup = 1
-gated_community = 0
-garden_area = 1
-
-features = [ suburb, density, type_of_property, rooms, bedroom, toilets, ensuite,toilets_type, local_authority, ward, garage, swimming_pool, 
-                fixtures_fittings, cottage, power, power_backup, water, water_backup, gated_community, garden_area]
-
-input = rentalPrediction.userInput(features)
-pickle.dump(input, open('HarareRentPredictionModel.pkl','wb'))
