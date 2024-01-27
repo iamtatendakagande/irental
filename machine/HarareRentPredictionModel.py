@@ -29,9 +29,6 @@ class rentalPrediction:
                 print("An error occurred:", e)
 
     def preprocess_text(input):
-        LabelEncoding = LabelEncoder()
-        for col in input.select_dtypes(include=['object']).columns:
-            input[col]= LabelEncoding.fit_transform(input[col])
         preprocessed_text = input
         print(preprocessed_text)
         return preprocessed_text
@@ -115,8 +112,6 @@ class rentalPrediction:
 
         # Model Prediction
         ADB_model_predicted = ADB_model.predict(test_X)
-        #ADB_model_predicted = ADB_model.predict(preprocessed_input)
-
 
         # find Mean Absolute Error
         mae = mean_absolute_error(test_Y, ADB_model_predicted)
@@ -126,4 +121,6 @@ class rentalPrediction:
         print('mean_absolute_error', mae)
 
         print('prediction is', ADB_model_predicted)
+
+        print("Prediction is #{}".format([np.argmax(ADB_model_predicted)]))
         return ADB_model_predicted

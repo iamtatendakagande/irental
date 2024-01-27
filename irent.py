@@ -30,9 +30,9 @@ def index():
             rooms = request.form.get('rooms')
             bedrooms = request.form.get('bedrooms')
             toilets = request.form.get('toilets')
-            property_type = request.form.get('property')
+            property_type = request.form.get('properties')
             ensuites = request.form.get('ensuites')
-            local_authority = "Harare Municipality"
+            local_authority = "Harare Municipality" 
             ward = 17
             garage = request.form.get('garage')
             pool = request.form.get('pool')
