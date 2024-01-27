@@ -90,8 +90,8 @@ class rentalPrediction:
 
         Y = data['price']  
         Y
-        test_X = preprocessed_input
-        print(test_X)
+        #test_X = preprocessed_input
+        #print(test_X)
 
         from sklearn.model_selection import train_test_split
         from sklearn.ensemble import  AdaBoostRegressor
@@ -122,5 +122,10 @@ class rentalPrediction:
 
         print('prediction is', ADB_model_predicted)
 
-        print("Prediction is #{}".format([np.argmax(ADB_model_predicted)]))
+        print("Prediction is index value is {}".format(np.argmax(ADB_model_predicted)))
+        
+
+        for option in enumerate(ADB_model_predicted):
+            print(f"prediction number: {option[0]},amount {option[1]:.6f}")
+        
         return ADB_model_predicted
