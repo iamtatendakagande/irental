@@ -122,10 +122,11 @@ class rentalPrediction:
 
         print('prediction is', ADB_model_predicted)
 
-        print("Prediction is index value is {}".format(np.argmax(ADB_model_predicted)))
-        
-
+        print("Prediction is on index number is {}".format(np.argmax(ADB_model_predicted)))
+        predIndex = np.argmax(ADB_model_predicted)
         for option in enumerate(ADB_model_predicted):
             print(f"prediction number: {option[0]},amount {option[1]:.6f}")
-        
-        return ADB_model_predicted
+            if option[0] == predIndex:
+                output = option[1]
+                print(f"The final prediction is on : {option[0]},and the amount is : {option[1]:.6f}")
+                return output

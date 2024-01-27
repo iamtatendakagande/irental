@@ -49,11 +49,11 @@ def index():
                     fixtures, cottage, power, power_backup, water, water_backup, gated, garden]
             
             print(features)
-            rentalPrediction.userInput(features)
+            output = rentalPrediction.userInput(features)
         except Exception as e:
             print("An error occurred:", e)
 
-        return render_template('rental/output.html')
+        return render_template('rental/output.html', price = output)
     else:
         return render_template('index.html')
     
