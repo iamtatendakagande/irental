@@ -5,8 +5,8 @@
 <div class="col-xs-12 col-sm-12 col-lg-4 col-lg-offset-4">
     <form class="main-form" id="main-form" method="POST" action="/upload" role="form" enctype="multipart/form-data" >
             <div class="form-group">
-                    <label for="coordinates">coordinates:</label>
-                <input id="coordinates" type="file" class="form-control @error('coordinates') is-invalid @enderror" name="coordinates" autofocus>
+                    <label for="properties">properties:</label>
+                <input id="properties" type="file" class="form-control @error('properties') is-invalid @enderror" name="properties" autofocus>
         </div>
 
     <div class="form-group">
@@ -16,7 +16,7 @@
             </button>
 
             <a type="submit" id="submit" class="btn btn-wide btn-warning" 
-            href="#">DOWNLOAD TEMPLATE</a>
+            href="/download">DOWNLOAD TEMPLATE</a>
     </div>
 </form>
 </div>

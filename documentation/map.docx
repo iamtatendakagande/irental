@@ -1,0 +1,73 @@
+import folium
+import pandas as pd
+
+companies = pd.read_csv("./static/uploads/coordinates.csv")
+companies.head()
+
+# Center coordinates of Harare Metropolitan Province (replace with exact coordinates if needed),
+latitude = -17.825166
+longitude = 31.053056
+# Create a base map,
+map = folium.Map(location=[latitude, longitude], zoom_start=11)
+
+for i in range(0, len(companies)):
+    folium.Marker([companies.iloc[i]["latitude"],companies.iloc[i]["longitude"]], 
+    popup = companies.iloc[i]["address"],  # Assuming a "name" column for popup content
+    icon=folium.Icon(color="blue", icon="info-sign")).add_to(map)  # Customize icon"
+
+file_name = 'public/rental/'
+map.save(file_name+"harare.html")  # Save the map as an HTML file
+
+
+UPLOAD FROM CSV
+
+@app.route('/map')
+def map():
+    import folium
+
+    # Center coordinates of Harare Metropolitan Province (replace with exact coordinates if needed)
+    latitude = -17.825166
+    longitude = 31.053056
+
+    # Create a base map
+    map = folium.Map(location=[latitude, longitude], zoom_start=11, prefer_canvas=True)
+
+    # Coordinate points (replace with your actual list of points)
+    points = [
+        [-17.8154, 31.0456],  # Example point 1
+        [-17.8352, 31.0625],  # Example point 2
+        # ... Add more points as needed
+    ]
+
+    try:
+        path = "./static/uploads/coordinates.csv"
+        # Open the CSV file in read mode
+        with open(path, 'r') as file:
+            csv_reader = csv.reader(file)
+            # Skip the header row (if present)
+            next(csv_reader)
+            # Iterate through each row in the CSV file
+            points = []
+            for row in csv_reader:
+                # Execute the query using executemany for efficiency
+                points.append([row[0], row[2], row[3]])
+            print(points)
+    except Exception as e:
+                print("An error occurred:", e)
+
+    # Add markers for each point
+    for point in points:
+        print(point)
+        folium.Marker(
+        location= [point[1], point[2]],
+        popup=point[0],
+    ).add_to(map)
+    # Display the map
+    file_name = 'public/rental/'
+    map.save(file_name+"harare.html")  # Save the map as an HTML file
+
+    return render_template('rental/map.html')
+
+@app.route('/harare')
+def showMap():
+   return render_template('rental/harare.html')

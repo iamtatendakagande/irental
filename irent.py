@@ -1,10 +1,10 @@
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, url_for, request, session, send_file
 import re, hashlib
 from source.databaseConnection import Database
+import os
 import csv
-from machine.HarareRentPredictionModel import rentalPrediction
-
-
+from machine.harare.HarareRentPredictionModel import rentalPrediction
+from machine.harare.PropertyPredictionModel import propertyPrediction
 
 app = Flask(__name__, template_folder='./public')
 # enable debugging mode
@@ -16,9 +16,8 @@ app.config['UPLOAD_FOLDER'] =  'static/uploads'
 app.secret_key = 'your secret key'
 
 # Database Connection
-connection = Database(host="localhost", user="root", password="", database="irental")
+connection = Database(host="localhost", user="root", password="edmore1", database="irental")
 connection.connect()
-
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -50,6 +49,8 @@ def index():
             
             print(features)
             output = rentalPrediction.userInput(features)
+            #Loading model to compare the results
+            #pickle.load(open('HarareRentPredictionModel.pkl','rb'
         except Exception as e:
             print("An error occurred:", e)
 
@@ -60,10 +61,7 @@ def index():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     if (request.method == "POST"):
-        import os
-        import pandas as pd 
-        import csv
-        file = request.files['coordinates']
+        file = request.files['properties']
         if file.filename != '':
             try:
                 path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
@@ -77,9 +75,8 @@ def upload():
                     # Iterate through each row in the CSV file
                     for row in csv_reader:
                         # Execute the query using executemany for efficiency
-                        data = [row[0], row[1] ,row[2], row[3]] 
-                        print(data[0])
-                        connection.populate("INSERT INTO coordinates(address, authority, latitude, longitude) VALUES ('{}', '{}', '{}','{}')".format(data[0], data[1] ,data[2], data[3]))
+                        data = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21]]
+                        connection.populate("INSERT INTO properties(email, price, suburb, density, type_of_property, rooms, bedroom, toilets, ensuite, toilets_type, garage, swimming_pool, fixtures_fittings, cottage, power, power_backup, water, water_backup, gated_community, garden_area, address, description) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}')".format(data[0], data[1] ,data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], data[13] ,data[14], data[15], data[16], data[17] ,data[18], data[19], data[20], data[21]))
             except Exception as e:
                      print("An error occurred:", e)
                         
@@ -87,70 +84,39 @@ def upload():
     else:
         return render_template('rental/upload.html')
 
+@app.route("/download")
+def download():
+    return send_file(
+        "./static/downloads/properties-upload-template.zip",
+        mimetype="application/zip",
+        download_name="properties-upload-template.zip",
+        as_attachment=True,) 
+
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if (request.method == "POST"):
-        #Loading model to compare the results
-        #pickle.load(open('HarareRentPredictionModel.pkl','rb'
+        try:
+            suburb = request.form.get('suburb')
+            price = request.form.get('price')
+
+            features = [suburb, price]
+
+            print(features)
+            output = propertyPrediction.userInput(features)
+            #Loading model to compare the results
+            #pickle.load(open('HarareRentPredictionModel.pkl','rb'
+        except Exception as e:
+            print("An error occurred:", e)
 
         return render_template('rental/predict.html')
     else:
         return render_template('rental/predict.html')
 
-@app.route('/map')
-def map():
-    import folium
-
-    # Center coordinates of Harare Metropolitan Province (replace with exact coordinates if needed)
-    latitude = -17.825166
-    longitude = 31.053056
-
-    # Create a base map
-    map = folium.Map(location=[latitude, longitude], zoom_start=11, prefer_canvas=True)
-
-    # Coordinate points (replace with your actual list of points)
-    points = [
-        [-17.8154, 31.0456],  # Example point 1
-        [-17.8352, 31.0625],  # Example point 2
-        # ... Add more points as needed
-    ]
-
-    try:
-        path = "./static/uploads/coordinates.csv"
-        # Open the CSV file in read mode
-        with open(path, 'r') as file:
-            csv_reader = csv.reader(file)
-            # Skip the header row (if present)
-            next(csv_reader)
-            # Iterate through each row in the CSV file
-            points = []
-            for row in csv_reader:
-                # Execute the query using executemany for efficiency
-                points.append([row[0], row[2], row[3]])
-            print(points)
-    except Exception as e:
-                print("An error occurred:", e)
-
-    # Add markers for each point
-    for point in points:
-        print(point)
-        folium.Marker(
-        location= [point[1], point[2]],
-        popup=point[0],
-    ).add_to(map)
-    # Display the map
-    file_name = 'public/rental/'
-    map.save(file_name+"harare.html")  # Save the map as an HTML file
-
-    return render_template('rental/map.html')
-
-@app.route('/harare')
-def showMap():
-   return render_template('rental/harare.html')
 
 @app.route('/show')
 def show():
-    return render_template('rental/show.html')
+    properties =  connection.posted("SELECT * FROM properties")
+    return render_template('rental/show.html', properties = properties)
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
@@ -163,7 +129,7 @@ def signin():
         hash = hashlib.sha1(hash.encode())
         password = hash.hexdigest()
 
-        users =  connection.execute_query('SELECT * FROM users WHERE email = %s AND password = %s', [email, password])
+        users =  connection.posted('SELECT * FROM users WHERE email = %s AND password = %s', [email, password])
         # Fetch one record and return the result
       
         if users:   
@@ -199,7 +165,7 @@ def register():
             email = request.form.get['email']
 
             # Check if user exists using MySQL
-            user =  connection.execute_query('SELECT * FROM users WHERE email = %s', [email] )
+            user =  connection.posted('SELECT * FROM users WHERE email = %s', [email] )
          
             # If user exists show error and validation checks
             if user:
@@ -216,7 +182,7 @@ def register():
                 hash = hashlib.sha1(hash.encode())
                 password = hash.hexdigest()
                 # user doesn't exist, and the form data is valid, so insert the new user into the users table
-                connection.execute_query('INSERT INTO users(name, email, password) VALUES (%s, %s, %s)', [name, email, password])
+                connection.posted('INSERT INTO users(name, email, password) VALUES (%s, %s, %s)', [name, email, password])
                 msg = 'You have successfully registered!'
         elif request.method == 'POST':
             # Form is empty... (no POST data)

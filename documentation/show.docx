@@ -1,8 +1,5 @@
-{% extends 'partials/user.html' %}
-
-{% block body %}
-<div class="col-xs-12 col-sm-12 col-lg-8 col-lg-offset-2 output-panel">
-    {% for property in properties %} 
+    {% for property in properties %}    
+        <div class="output-panel">
             <div class="col-lg-5 col-sm-6 ">
                 <h6>${{property[1]}} {{property[1]}}</h6>
                 <h6>email : {{property[1]}}</h6>
@@ -15,7 +12,7 @@
                 <h6>ensuite : {{property[3]}}</h6>
                 <h6>toilets_type : {{property[3]}}</h6>
             </div>
-    
+
             <div class="col-lg-5 col-sm-6">
                 <h6>garage : {{property[1]}}</h6> 
                 <h6>swimming_pool : {{property[1]}}</h6> 
@@ -31,8 +28,5 @@
                 <h6>garden_area : {{property[1]}}</h6> 
                 <h6>description : {{property[1]}}</h6> 
             </div>
+        </div>    
         {% endfor %}
-
-</div>
-{% endblock %}
-

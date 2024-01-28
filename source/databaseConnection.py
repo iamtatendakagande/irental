@@ -1,6 +1,5 @@
 import mysql
 import mysql.connector
-import csv
 
 class Database:
     def __init__(self, host, user, password, database):

@@ -1,0 +1,28 @@
+def upload():
+    if (request.method == "POST"):
+        import os
+        import pandas as pd 
+        import csv
+        file = request.files['coordinates']
+        if file.filename != '':
+            try:
+                path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+                # set the file path
+                file.save(path)
+                # Open the CSV file in read mode
+                with open(path, 'r') as file:
+                    csv_reader = csv.reader(file)
+                    # Skip the header row (if present)
+                    next(csv_reader)
+                    # Iterate through each row in the CSV file
+                    for row in csv_reader:
+                        # Execute the query using executemany for efficiency
+                        data = [row[0], row[1] ,row[2], row[3]] 
+                        print(data[0])
+                        connection.populate("INSERT INTO coordinates(address, authority, latitude, longitude) VALUES ('{}', '{}', '{}','{}')".format(data[0], data[1] ,data[2], data[3]))
+            except Exception as e:
+                     print("An error occurred:", e)
+                        
+        return render_template('rental/upload.html')    
+    else:
+        return render_template('rental/upload.html')
