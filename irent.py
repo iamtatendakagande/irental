@@ -115,28 +115,28 @@ def predict():
 
 @app.route('/show')
 def show():
-    properties =  connection.posted("SELECT * FROM properties")
+    properties =  connection.posts("SELECT * FROM properties")
     return render_template('rental/show.html', properties = properties)
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
     if (request.method == "POST"):
         # Create variables for easy access
-        email = request.form.get['email']
-        password = request.form.get['password']
+        email = request.form.get('email')
+        password = request.form.get('password')
         # Retrieve the hashed password
         hash = password + app.secret_key
         hash = hashlib.sha1(hash.encode())
         password = hash.hexdigest()
 
-        users =  connection.posted('SELECT * FROM users WHERE email = %s AND password = %s', [email, password])
         # Fetch one record and return the result
-      
-        if users:   
+        user = connection.post("SELECT * FROM users WHERE email = '{}' AND password = '{}'".format(email, password))
+        print(user)
+        if user:   
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
-            session['id'] = users['id']
-            session['email'] = users['email']
+            session['id'] = user[0]
+            session['email'] = user[2]
             # Redirect to home page
         return render_template('rental/edit.html')
     else:
@@ -158,37 +158,32 @@ def register():
         # Output message if something goes wrong...
         msg = ''
         # Check if "email", "password" and "email" POST requests exist (user submitted form)
-        if request.method == 'POST' and 'email' in request.form.get and 'password' in request.form.get and 'email' in request.form.get:
-            # Create variables for easy access
-            name = request.form.get['name']
-            password = request.form.get['password']
-            email = request.form.get['email']
+        name = request.form.get('name')
+        password = request.form.get('password')
+        email = request.form.get('email')
 
-            # Check if user exists using MySQL
-            user =  connection.posted('SELECT * FROM users WHERE email = %s', [email] )
-         
-            # If user exists show error and validation checks
-            if user:
-                msg = 'user already exists!'
-            elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-                msg = 'Invalid email address!'
-            elif not re.match(r'[A-Za-z0-9]+', email):
-                msg = 'email must contain only characters and numbers!'
-            elif not email or not password or not email:
-                msg = 'Please fill out the form!'
-            else:
-                # Hash the password
-                hash = password + app.secret_key
-                hash = hashlib.sha1(hash.encode())
-                password = hash.hexdigest()
-                # user doesn't exist, and the form data is valid, so insert the new user into the users table
-                connection.posted('INSERT INTO users(name, email, password) VALUES (%s, %s, %s)', [name, email, password])
-                msg = 'You have successfully registered!'
-        elif request.method == 'POST':
-            # Form is empty... (no POST data)
+        # Check if user exists using MySQL
+        user =  connection.posts("SELECT * FROM users WHERE email = '{}'".format(email))
+        
+        # If user exists show error and validation checks
+        if user:
+            msg = 'user already exists!'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            msg = 'Invalid email address!'
+        elif not re.match(r'[A-Za-z0-9]+', email):
+            msg = 'email must contain only characters and numbers!'
+        elif not email or not password or not email:
             msg = 'Please fill out the form!'
-        # Show registration form with message (if any)
-        return render_template('auth/register.html')
+        else:
+            # Hash the password
+            hash = password + app.secret_key
+            hash = hashlib.sha1(hash.encode())
+            password = hash.hexdigest()
+            # user doesn't exist, and the form data is valid, so insert the new user into the users table
+            connection.populate("INSERT INTO users(name, email, password) VALUES ('{}','{}','{}')".format(name, email, password))
+            msg = 'You have successfully registered!'
+
+        return render_template('auth/signin.html')
     else:
         return render_template('auth/register.html')
 

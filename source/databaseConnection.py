@@ -33,7 +33,7 @@ class Database:
             print("Failed to execute query:", error)
             return None
         
-    def posted(self, query):
+    def posts(self, query):
         try:
             cursor = self.connection.cursor(buffered=True)
             cursor.execute(query)
@@ -43,6 +43,18 @@ class Database:
         except Exception as error:
             print("Failed to execute query:", error)
             return None
+        
+    def post(self, query):
+        try:
+            cursor = self.connection.cursor(buffered=True)
+            cursor.execute(query)
+            result = cursor.fetchone()
+            cursor.close()
+            return result
+        except Exception as error:
+            print("Failed to execute query:", error)
+            return None
+        
         
     def close_connection(self):
         if self.connection:
