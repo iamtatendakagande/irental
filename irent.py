@@ -19,8 +19,13 @@ app.secret_key = 'your secret key'
 connection = Database(host="localhost", user="root", password="edmore1", database="irental")
 connection.connect()
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
+    properties =  connection.posts("SELECT * FROM properties")
+    return render_template('/index.html', properties = properties)
+
+@app.route('/pricepredication', methods=['GET', 'POST'])
+def pricepredication():
     if (request.method == "POST"):
         try:
             suburb = request.form.get('suburb')
@@ -56,10 +61,38 @@ def index():
 
         return render_template('rental/output.html', price = output)
     else:
-        return render_template('index.html')
+        return render_template('rental/price.html')
     
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
+@app.route('/propprediction', methods=['GET', 'POST'])
+def propprediction():
+    if (request.method == "POST"):
+        try:
+            suburb = request.form.get('suburb')
+            price = request.form.get('price')
+
+            features = [suburb, price]
+
+            print(features)
+            output = propertyPrediction.userInput(features)
+            #Loading model to compare the results
+            #pickle.load(open('HarareRentPredictionModel.pkl','rb'
+        except Exception as e:
+            print("An error occurred:", e)
+
+        return render_template('rental/property.html')
+    else:
+        return render_template('rental/property.html')
+    
+@app.route("/property")
+def property():
+    return send_file(
+        "./static/downloads/properties-upload-template.zip",
+        mimetype="application/zip",
+        download_name="properties-upload-template.zip",
+        as_attachment=True,) 
+    
+@app.route('/properties', methods=['GET', 'POST'])
+def properties():
     if (request.method == "POST"):
         file = request.files['properties']
         if file.filename != '':
@@ -80,43 +113,45 @@ def upload():
             except Exception as e:
                      print("An error occurred:", e)
                         
-        return render_template('rental/upload.html')    
+        return render_template('rental/properties.html')    
     else:
-        return render_template('rental/upload.html')
+        return render_template('rental/properties.html')
 
-@app.route("/download")
-def download():
+@app.route("/coordinate")
+def coordinate():
     return send_file(
-        "./static/downloads/properties-upload-template.zip",
+        "./static/downloads/coordinates-upload-template.zip",
         mimetype="application/zip",
-        download_name="properties-upload-template.zip",
+        download_name="coordinates-upload-template.zip",
         as_attachment=True,) 
 
-@app.route('/predict', methods=['GET', 'POST'])
-def predict():
+@app.route('/coordinates', methods=['GET', 'POST'])
+def coordinates():
     if (request.method == "POST"):
-        try:
-            suburb = request.form.get('suburb')
-            price = request.form.get('price')
-
-            features = [suburb, price]
-
-            print(features)
-            output = propertyPrediction.userInput(features)
-            #Loading model to compare the results
-            #pickle.load(open('HarareRentPredictionModel.pkl','rb'
-        except Exception as e:
-            print("An error occurred:", e)
-
-        return render_template('rental/predict.html')
+        file = request.files['coordinates']
+        if file.filename != '':
+            try:
+                path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+                # set the file path
+                file.save(path)
+                # Open the CSV file in read mode
+                with open(path, 'r') as file:
+                    csv_reader = csv.reader(file)
+                    # Skip the header row (if present)
+                    next(csv_reader)
+                    # Iterate through each row in the CSV file
+                    for row in csv_reader:
+                        # Execute the query using executemany for efficiency
+                        data = [row[0], row[1], row[2], row[3]]
+                        # Create the POINT object using MySQL's ST_PointFromText function
+                        point = f"POINT({data[3]},{data[2]})"
+                        print(point)
+                        connection.populate("INSERT INTO coordinates(address, authority, coordinates) VALUES ('{}', '{}', {})".format(data[0], data[1], point))
+            except Exception as e:
+                     print("An error occurred:", e)
+        return render_template('rental/coordinates.html')    
     else:
-        return render_template('rental/predict.html')
-
-
-@app.route('/show')
-def show():
-    properties =  connection.posts("SELECT * FROM properties")
-    return render_template('rental/show.html', properties = properties)
+        return render_template('rental/coordinates.html')
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():

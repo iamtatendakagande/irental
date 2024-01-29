@@ -48,6 +48,7 @@ CREATE TABLE properties (
 CREATE TABLE coordinates (
     id INT AUTO_INCREMENT PRIMARY KEY,
     address VARCHAR(60) NOT NULL,
+	authority VARCHAR(60) NOT NULL,
     coordinates POINT NOT NULL,
     SPATIAL INDEX(coordinates),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP

@@ -36,15 +36,14 @@
                         
                          <a class="navbar-brand" href="/">irent</a>
                          
-                            
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="collapse">
                             <ul class="nav navbar-nav">
-                                <!-- <li><a href="/map"> map</a></li>-->
-                                <li><a href="/show"> show</a></li>
-                                <li><a href="/predict"> predict</a></li>
-                                <li><a href="/upload">upload</a></li>
+                                <li><a href="/pricepredication"> price prediction</a></li>
+                                <li><a href="/propprediction"> property prediction</a></li>
+                                <li><a href="/properties">upload properties</a></li>
+                                <li><a href="/coordinates">upload coordinates</a></li>
                             </ul>   
         
                             <ul class="nav navbar-nav navbar-right">
@@ -54,15 +53,6 @@
                    
             </div>
             </nav>   
-    
-    <!-- jQuery -->
-
-<script type="text/javascript" src= "{{ url_for('static',filename='js/jquery.js') }}" defer></script>
-<!-- Bootstrap -->
-<script type="text/javascript" src= "{{ url_for('static',filename='js/bootstrap.min.js') }}" defer></script>
-<!--Main JavaScript -->
-<script type="text/javascript" src= "{{ url_for('static',filename='js/irent.js') }}" defer></script>
-
     </header>
 
 
@@ -72,21 +62,10 @@
 
     {% endblock %}
 
+    <!-- jQuery -->
+<script type="text/javascript" src= "{{ url_for('static',filename='js/jquery.js') }}" defer></script>
+<!-- Bootstrap -->
+<script type="text/javascript" src= "{{ url_for('static',filename='js/bootstrap.min.js') }}" defer></script>
+<!--Main JavaScript -->
+<script type="text/javascript" src= "{{ url_for('static',filename='js/irent.js') }}" defer></script>
 </body>
-
-
-<!-- Start: FOOTER -->
-<footer id="footer" name="footer" class="col-xs-12 col-sm-12 col-lg-4 col-lg-offset-4 text-center footer" style="display:none">
-    <div class="row">
-    
-        <span class="copyright">
-            ©
-            <script>
-                document.write(new Date().getFullYear())
-            </script> made with <i class="fa fa-heart"></i> by <a href="https://www.facebook.com/iamtatendakagande" target="_blank">tatenda T8 kagande</a>
-        </span>
-    
-    </div>
-</footer>
-<!-- End: FOOTER -->
-</html>

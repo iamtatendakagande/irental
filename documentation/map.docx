@@ -71,3 +71,34 @@ def map():
 @app.route('/harare')
 def showMap():
    return render_template('rental/harare.html')
+
+
+@app.route('/map')
+def map():
+    import folium
+
+    # Center coordinates of Harare Metropolitan Province (replace with exact coordinates if needed)
+    latitude = -17.825166
+    longitude = 31.053056
+
+    # Create a base map
+    map = folium.Map(location=[latitude, longitude], zoom_start=11, prefer_canvas=True)
+
+    try:
+        # Execute the SQL query to fetch coordinates
+        points = connection.posts("SELECT ST_Y(coordinates)as latitude, ST_X(coordinates) as longitude FROM irental.coordinates")
+        # Fetch all coordinates into a list
+        print(points)
+
+        # Add markers for each point
+        for point in points:
+           folium.Marker([point[0], point[1]]).add_to(map)
+
+    except Exception as e:
+            print("An error occurred:", e)
+
+    map.save("public/rental/harare.html")
+
+@app.route('/harare')
+def showMap():
+   return render_template('rental/harare.html')
