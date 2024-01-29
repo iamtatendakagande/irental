@@ -19,7 +19,7 @@ app.secret_key = 'your secret key'
 connection = Database(host="localhost", user="root", password="edmore1", database="irental")
 connection.connect()
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
     properties =  connection.posts("SELECT * FROM properties")
     return render_template('/index.html', properties = properties)
@@ -110,6 +110,13 @@ def properties():
                         # Execute the query using executemany for efficiency
                         data = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21]]
                         connection.populate("INSERT INTO properties(email, price, suburb, density, type_of_property, rooms, bedroom, toilets, ensuite, toilets_type, garage, swimming_pool, fixtures_fittings, cottage, power, power_backup, water, water_backup, gated_community, garden_area, address, description) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}')".format(data[0], data[1] ,data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], data[13] ,data[14], data[15], data[16], data[17] ,data[18], data[19], data[20], data[21]))
+                
+                append = './machine/harare/updated.csv'
+                with open(append, 'a', newline='') as appended:
+                    csv_writer = csv.writer(appended)
+                    line = [row[2], row[3], row[4], row[7], row[1], row[5], row[6], 'NULL', row[8], 'NULL', row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20]]
+                    csv_writer.writerow(line)
+                        
             except Exception as e:
                      print("An error occurred:", e)
                         
@@ -172,8 +179,9 @@ def signin():
             session['loggedin'] = True
             session['id'] = user[0]
             session['email'] = user[2]
+            properties =  connection.posts("SELECT * FROM properties WHERE email = '{}'".format(email))
             # Redirect to home page
-        return render_template('rental/edit.html')
+        return render_template('rental/edit.html', properties = properties)
     else:
         return render_template('auth/signin.html')
     
@@ -183,8 +191,8 @@ def signout():
     session.pop('signout', None)
     session.pop('id', None)
     session.pop('email', None)
-    # Redirect to login page
-    return render_template('index.html')
+    properties =  connection.posts("SELECT * FROM properties")
+    return render_template('index.html', properties = properties)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -221,7 +229,18 @@ def register():
         return render_template('auth/signin.html')
     else:
         return render_template('auth/register.html')
+    
+@app.route('/edit', methods=['GET', 'POST'])
+def edit():
+    email = session["email"]
+    properties =  connection.posts("SELECT * FROM properties WHERE email = '{}'".format(email))
+    if (request.method == "POST"):
+        return render_template('rental/edit.html', properties = properties)
+    else:
+        return render_template('rental/edit.html', properties = properties)
+            
 
+        
 if __name__ == '__main__':
     app.run(debug=True ,use_reloader=True)
     
