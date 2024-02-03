@@ -1,0 +1,23 @@
+{% extends 'partials/user.html' %}
+
+{% block body %}
+<div class="col-xs-12 col-sm-12 col-lg-4 col-lg-offset-4">
+    <form class="main-form" id="main-form" method="POST" action="/suburbs" role="form" enctype="multipart/form-data">
+        <div class="form-group">
+                   <label for="suburbs">suburbs:</label>
+                <input id="suburbs" type="file" class="form-control @error('suburbs') is-invalid @enderror" name="suburbs" autofocus>
+        </div>
+
+        <div class="form-group">
+                <div class="row-sm-offset-4-sm-7">
+                        <button type="submit" id="submit" class="btn btn-wide btn-primary">
+                                UPLOAD
+                        </button>
+
+                        <a type="submit" id="submit" class="btn btn-wide btn-warning" 
+                        href="/properties">DOWNLOAD TEMPLATE</a>
+                </div>
+        </div>
+</form>
+</div>
+{% endblock %}

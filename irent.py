@@ -29,15 +29,12 @@ def pricepredication():
     if (request.method == "POST"):
         try:
             suburb = request.form.get('suburb')
-            density =  "Low"
             toilet_type = request.form.get('toilet_type')
             rooms = request.form.get('rooms')
             bedrooms = request.form.get('bedrooms')
             toilets = request.form.get('toilets')
             property_type = request.form.get('properties')
             ensuites = request.form.get('ensuites')
-            local_authority = "Harare Municipality" 
-            ward = 17
             garage = request.form.get('garage')
             pool = request.form.get('pool')
             fixtures = request.form.get('fixtures')
@@ -48,16 +45,26 @@ def pricepredication():
             water_backup = request.form.get('water_backup')
             gated = request.form.get('gated')
             garden = request.form.get('garden')
-        
-            features = [suburb, density, property_type, rooms, bedrooms, toilets, toilet_type, ensuites, local_authority, ward, garage, pool, 
-                    fixtures, cottage, power, power_backup, water, water_backup, gated, garden]
+
+            record = connection.post("SELECT * FROM suburbs WHERE suburb = '{}'".format(suburb))
+            print(record)
+            if record != None:
+                local_authority = record[1]
+                constituency = record[0]
+                density = record[4]
             
-            print(features)
-            output = predict.userInput(features)
+                features = [suburb, density, property_type, rooms, bedrooms, toilets, toilet_type, ensuites, local_authority, constituency, garage, pool, 
+                    fixtures, cottage, power, power_backup, water, water_backup, gated, garden]
+                print(features)
+                output = predict.userInput(features)
+                return render_template('rental/output.html', price = output)
+            else:
+               return render_template('rental/price.html') 
         except Exception as e:
             print("An error occurred:", e)
-
-        return render_template('rental/output.html', price = output)
+            msg = "suburb not found please download the suburbs file check spelling or upload file using the attached template"
+            print(msg)
+            return render_template('rental/price.html')
     else:
         return render_template('rental/price.html')
     
@@ -156,6 +163,32 @@ def coordinates():
         return render_template('rental/coordinates.html')    
     else:
         return render_template('rental/coordinates.html')
+    
+@app.route('/suburbs', methods=['GET', 'POST'])
+def suburbs():
+    if (request.method == "POST"):
+        file = request.files['suburbs']
+        if file.filename != '':
+            try:
+                path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+                # set the file path
+                file.save(path)
+                # Open the CSV file in read mode
+                with open(path, 'r') as file:
+                    csv_reader = csv.reader(file)
+                    # Skip the header row (if present)
+                    next(csv_reader)
+                    # Iterate through each row in the CSV file
+                    for row in csv_reader:
+                        # Execute the query using executemany for efficiency
+                        data = [row[0], row[1], row[2], row[3]]
+                        connection.populate("INSERT INTO suburbs(constituency, authority, suburb, density) VALUES ('{}', '{}', '{}', '{}')".format(data[0], data[1], data[2], data[3]))
+            except Exception as e:
+                     print("An error occurred:", e)
+        return render_template('rental/suburbs.html')    
+    else:
+        return render_template('rental/suburbs.html')
+        
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
@@ -238,7 +271,11 @@ def edit():
         return render_template('rental/edit.html', properties = properties)
     else:
         return render_template('rental/edit.html', properties = properties)
+    
+@app.route('/search')
+def search(): 
+    properties =  connection.posts("SELECT * FROM properties WHERE email")
+    return render_template('rental/edit.html', properties = properties)
            
 if __name__ == '__main__':
     app.run(debug=True ,use_reloader=True)
-    model = pickle.loadHarareRentPredictionModel()

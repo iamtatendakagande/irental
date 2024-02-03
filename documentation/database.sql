@@ -44,7 +44,7 @@ CREATE TABLE properties (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP	
 );
 
--- Create the users table
+-- Create the coordinates table
 CREATE TABLE coordinates (
     id INT AUTO_INCREMENT PRIMARY KEY,
     address VARCHAR(60) NOT NULL,
@@ -54,6 +54,16 @@ CREATE TABLE coordinates (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create the users table
+CREATE TABLE suburbs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    constituency VARCHAR(35) NOT NULL,
+    authority VARCHAR(35) NOT NULL,
+    suburb VARCHAR(45) NOT NULL UNIQUE,
+	density VARCHAR(45) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+	
 
 
 

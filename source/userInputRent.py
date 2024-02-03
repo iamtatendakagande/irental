@@ -14,7 +14,7 @@ class predict:
     def userInput(features):
         try:
             input = pd.DataFrame(features, ['suburb', 'density', 'type_of_property', 'rooms', 'bedroom', 
-                                    'toilets', 'toilets_type', 'ensuite', 'local_authority', 'ward', 'garage', 'swimming_pool',
+                                    'toilets', 'toilets_type', 'ensuite', 'local_authority', 'constituency', 'garage', 'swimming_pool',
                                     'fixtures_fittings', 'cottage', 'power', 'power_backup', 'water',
                                     'water_backup', 'gated_community', 'garden_area']).T
 
