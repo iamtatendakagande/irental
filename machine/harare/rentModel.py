@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from sklearn.preprocessing import LabelEncoder
 
 # Create a machine learning model.
-class propertyPrediction:
+class rentalPrediction:
     def __init__(self, features): 
         self.features = features
         print(self.features)
@@ -20,8 +20,8 @@ class propertyPrediction:
 
             print(input)          
             print(input.shape)
-            preprocessed_input = propertyPrediction.preprocess_text(input)
-            price = propertyPrediction.predict(preprocessed_input)
+            preprocessed_input = rentalPrediction.preprocess_text(input)
+            price = rentalPrediction.predict(preprocessed_input)
             return price
         except Exception as e:
                 print("An error occurred:", e)
@@ -33,7 +33,7 @@ class propertyPrediction:
      
     def predict(preprocessed_input):
         # Read the dataset
-        data = pd.read_csv('./machine/updated.csv')
+        data = pd.read_csv('./machine/harare/updated.csv')
         
         print(data.head())
         print(data.tail())
@@ -105,6 +105,9 @@ class propertyPrediction:
         ADB_model = AdaBoostRegressor()
         # Model Fitting
         ADB_model.fit(train_X, train_Y)
+        #Pickel Model
+        with open("HarareRentPredictionModel.pkl", "wb") as f:
+            pickle.dump(ADB_model, f)
         # Model Score
         ADB_model_score = ADB_model.score(test_X, test_Y)
 

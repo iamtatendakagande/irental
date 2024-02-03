@@ -1,4 +1,4 @@
-suburb,density,type_of_property,price,rooms,bedroom,toilets,ensuite,toilets_type,local_authority ,ward,garage,swimming_pool,fixtures_fittings,cottage,power,power_backup,water,water_backup,gated_community,garden_area
+suburb,density,type_of_property,price,rooms,bedroom,toilets,ensuite,toilets_type,local_authority,ward,garage,swimming_pool,fixtures_fittings,cottage,power,power_backup,water,water_backup,gated_community,garden_area
  Borrowdale Brooke,Low,House,3000,8,3,3,1,Self,Harare Municipality,18,0,0,1,0,1,0,1,0,1,1
  Borrowdale,Low,House,1800,7,4,3,2,Self,Harare Municipality,18,2,1,1,0,1,1,1,1,0,1
  Borrowdale ,Low,House,2500,7,2,2,1,Self,Harare Municipality,18,0,1,1,0,1,1,1,0,0,1

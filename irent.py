@@ -1,10 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, request, session, send_file
 import re, hashlib
-from source.databaseConnection import Database
+from source.databaseConnection import database
 import os
 import csv
-from machine.harare.HarareRentPredictionModel import rentalPrediction
-from machine.harare.PropertyPredictionModel import propertyPrediction
+from source.userInputRent import predict
 
 app = Flask(__name__, template_folder='./public')
 # enable debugging mode
@@ -16,8 +15,9 @@ app.config['UPLOAD_FOLDER'] =  'static/uploads'
 app.secret_key = 'your secret key'
 
 # Database Connection
-connection = Database(host="localhost", user="root", password="edmore1", database="irental")
+connection = database(host="localhost", user="root", password="edmore1", database="irental")
 connection.connect()
+
 
 @app.route('/', methods=['GET'])
 def index():
@@ -49,13 +49,11 @@ def pricepredication():
             gated = request.form.get('gated')
             garden = request.form.get('garden')
         
-            features = [property_type, suburb, density, toilet_type, rooms, bedrooms, toilets, ensuites, local_authority, ward, garage, pool, 
+            features = [suburb, density, property_type, rooms, bedrooms, toilets, toilet_type, ensuites, local_authority, ward, garage, pool, 
                     fixtures, cottage, power, power_backup, water, water_backup, gated, garden]
             
             print(features)
-            output = rentalPrediction.userInput(features)
-            #Loading model to compare the results
-            #pickle.load(open('HarareRentPredictionModel.pkl','rb'
+            output = predict.userInput(features)
         except Exception as e:
             print("An error occurred:", e)
 
@@ -73,7 +71,6 @@ def propprediction():
             features = [suburb, price]
 
             print(features)
-            output = propertyPrediction.userInput(features)
             #Loading model to compare the results
             #pickle.load(open('HarareRentPredictionModel.pkl','rb'
         except Exception as e:
@@ -194,6 +191,10 @@ def signout():
     properties =  connection.posts("SELECT * FROM properties")
     return render_template('index.html', properties = properties)
 
+@app.route('/pickle')
+def pickle():
+      model = pickle.sendHarareRentPredictionModel()
+   
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -225,7 +226,6 @@ def register():
             # user doesn't exist, and the form data is valid, so insert the new user into the users table
             connection.populate("INSERT INTO users(name, email, password) VALUES ('{}','{}','{}')".format(name, email, password))
             msg = 'You have successfully registered!'
-
         return render_template('auth/signin.html')
     else:
         return render_template('auth/register.html')
@@ -238,9 +238,7 @@ def edit():
         return render_template('rental/edit.html', properties = properties)
     else:
         return render_template('rental/edit.html', properties = properties)
-            
-
-        
+           
 if __name__ == '__main__':
     app.run(debug=True ,use_reloader=True)
-    
+    model = pickle.loadHarareRentPredictionModel()
