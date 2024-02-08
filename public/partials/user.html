@@ -40,11 +40,25 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="collapse">
                             <ul class="nav navbar-nav">
-                                <li><a href="/pricepredication"> price prediction</a></li>
-                                <li><a href="/propprediction"> property prediction</a></li>
-                                <li><a href="/properties">upload properties</a></li>
-                                <li><a href="/coordinates">upload coordinates</a></li>
-                                <li><a href="/suburbs">upload suburbs</a></li>
+                                
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-target="#prediction" data-toggle="dropdown">prediction<b class="caret"></b></a>
+                                    <ul class="dropdown-menu" id="prediction">
+                                        <li><a href="/pricepredication">price</a></li>
+                                        <li><a href="/propprediction">property</a></li>
+                                    </ul>                  
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-target="#upload" data-toggle="dropdown">upload<b class="caret"></b></a>
+                                    <ul class="dropdown-menu" id="upload">
+                                        <li><a href="/coordinates">coordinates</a></li>
+                                        <li><a href="/suburbs">suburbs</a></li>
+                                        <li><a href="/properties">properties</a></li>
+                                    </ul>                  
+                                </li>
+                                <li><a href="/map">map</a></li>
+
                             </ul>   
         
                             <ul class="nav navbar-nav navbar-right">

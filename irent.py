@@ -2,8 +2,11 @@ from flask import Flask, render_template, redirect, url_for, request, session, s
 import re, hashlib
 from source.databaseConnection import database
 import os
+import pandas as pd 
 import csv
 from source.userInputRent import predict
+from source.userInputProperty import predicted
+from source.mapCreation import createHarareMap
 
 app = Flask(__name__, template_folder='./public')
 # enable debugging mode
@@ -17,7 +20,6 @@ app.secret_key = 'your secret key'
 # Database Connection
 connection = database(host="localhost", user="root", password="edmore1", database="irental")
 connection.connect()
-
 
 @app.route('/', methods=['GET'])
 def index():
@@ -49,8 +51,8 @@ def pricepredication():
             record = connection.post("SELECT * FROM suburbs WHERE suburb = '{}'".format(suburb))
             print(record)
             if record != None:
-                local_authority = record[1]
-                constituency = record[0]
+                local_authority = record[2]
+                constituency = record[1]
                 density = record[4]
             
                 features = [suburb, density, property_type, rooms, bedrooms, toilets, toilet_type, ensuites, local_authority, constituency, garage, pool, 
@@ -67,19 +69,31 @@ def pricepredication():
             return render_template('rental/price.html')
     else:
         return render_template('rental/price.html')
+
+@app.route("/suburb")
+def suburb():
+    return send_file(
+        "./static/downloads/suburbs.csv",
+        mimetype="application/csv",
+        download_name="suburbs.csv",
+        as_attachment=True,) 
     
 @app.route('/propprediction', methods=['GET', 'POST'])
 def propprediction():
-    if (request.method == "POST"):
+    if (request.method == "POST"): 
         try:
             suburb = request.form.get('suburb')
             price = request.form.get('price')
 
-            features = [suburb, price]
-
-            print(features)
-            #Loading model to compare the results
-            #pickle.load(open('HarareRentPredictionModel.pkl','rb'
+            record = connection.post("SELECT * FROM suburbs WHERE suburb = '{}'".format(suburb))
+            print(record)
+            if record != None:
+                local_authority = record[2]
+                constituency = record[1]
+                density = record[4]
+                features = [suburb, density, price, constituency, local_authority]
+                print(features)
+                output = predicted.userInputed(features)
         except Exception as e:
             print("An error occurred:", e)
 
@@ -157,9 +171,11 @@ def coordinates():
                         # Create the POINT object using MySQL's ST_PointFromText function
                         point = f"POINT({data[3]},{data[2]})"
                         print(point)
+                        connection.populate("DELETE FROM coordinates")
                         connection.populate("INSERT INTO coordinates(address, authority, coordinates) VALUES ('{}', '{}', {})".format(data[0], data[1], point))
             except Exception as e:
                      print("An error occurred:", e)
+        createHarareMap.map()
         return render_template('rental/coordinates.html')    
     else:
         return render_template('rental/coordinates.html')
@@ -188,7 +204,23 @@ def suburbs():
         return render_template('rental/suburbs.html')    
     else:
         return render_template('rental/suburbs.html')
-        
+
+@app.route("/nsuburb")
+def nsuburb():
+    return send_file(
+        "./static/downloads/suburbs-upload-template.zip",
+        mimetype="application/zip",
+        download_name="suburbs-upload-template.zip",
+        as_attachment=True,)
+
+@app.route('/map')
+def map():
+   return render_template('rental/map.html')
+
+@app.route('/harare')
+def harare():
+   return render_template('rental/harare.html')
+
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
@@ -211,7 +243,9 @@ def signin():
             session['email'] = user[2]
             properties =  connection.posts("SELECT * FROM properties WHERE email = '{}'".format(email))
             # Redirect to home page
-        return render_template('rental/edit.html', properties = properties)
+            return render_template('rental/edit.html', properties = properties)
+        else:
+            return render_template('auth/signin.html')
     else:
         return render_template('auth/signin.html')
     
@@ -222,12 +256,7 @@ def signout():
     session.pop('id', None)
     session.pop('email', None)
     properties =  connection.posts("SELECT * FROM properties")
-    return render_template('index.html', properties = properties)
-
-@app.route('/pickle')
-def pickle():
-      model = pickle.sendHarareRentPredictionModel()
-   
+    return render_template('index.html', properties = properties) 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -269,8 +298,7 @@ def edit():
     properties =  connection.posts("SELECT * FROM properties WHERE email = '{}'".format(email))
     if (request.method == "POST"):
         return render_template('rental/edit.html', properties = properties)
-    else:
-        return render_template('rental/edit.html', properties = properties)
+    return render_template('rental/edit.html', properties = properties)
     
 @app.route('/search')
 def search(): 

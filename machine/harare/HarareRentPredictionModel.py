@@ -70,14 +70,14 @@ print("Train size: ", train_X.shape, train_Y.shape)
 print("Test size: ", test_X.shape, test_Y.shape)
 
 # Creating Model
-ADB_model = AdaBoostRegressor()
+model = AdaBoostRegressor()
 # Model Fitting
-ADB_model.fit(train_X, train_Y)
+model.fit(train_X, train_Y)
 
 #Pickel Model
 with open("./machine/harare/HarareRentPredictionModel.pkl", "wb") as f:
-    pickle.dump(ADB_model, f)
+    pickle.dump(model, f)
 
 # Model Score
-ADB_model_score = ADB_model.score(test_X, test_Y)
+ADB_model_score = model.score(test_X, test_Y)
 print('prediction_score', ADB_model_score)

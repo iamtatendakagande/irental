@@ -22,17 +22,21 @@ class predict:
             print(input.shape)
             preprocessed_input = predict.preprocess_text(input)
             # load the model from disk
-            ADB_model = pickle.load(open("./machine/harare/HarareRentPredictionModel.pkl", 'rb'))
+            model = pickle.load(open("./machine/harare/HarareRentPredictionModel.pkl", 'rb'))
 
+
+            print("Processed text:",preprocessed_input)
+            print("Processed text values:",preprocessed_input.values)
             # Model Prediction
-            ADB_model_predicted = ADB_model.predict(preprocessed_input.values)
+            model_predicted = model.predict(preprocessed_input.values)
 
-            print('model_name',ADB_model.__class__.__name__)
-            print('prediction is', ADB_model_predicted)
+            print('model_name',model.__class__.__name__)
+            print('prediction is', model_predicted)
             
-            print("Prediction is on index number is {}".format(np.argmax(ADB_model_predicted)))
-            predIndex = np.argmax(ADB_model_predicted)
-            for option in enumerate(ADB_model_predicted):
+            
+            print("Prediction is on index number is {}".format(np.argmax(model_predicted)))
+            predIndex = np.argmax(model_predicted)
+            for option in enumerate(model_predicted):
                 print(f"prediction number: {option[0]},amount {option[1]:.6f}")
                 if option[0] == predIndex:
                     output = option[1]
@@ -43,18 +47,30 @@ class predict:
     
     def preprocess_text(input):
         data = pd.read_csv('./machine/harare/updated.csv', keep_default_na=False)
-        data = pd.concat([data, input], ignore_index=True)  # Combine and reset index
-        print(data.tail())
 
         # Option 1: Create a new DataFrame without the column
         data = data.drop('price', axis=1)
+
+        input['rooms'] = input['rooms'].astype(int)
+        data['rooms'] = data['price'].astype(int)
+
+        input['bedroom'] = input['bedroom'].astype(int)
+        data['bedroom'] = data['bedroom'].astype(int)
+
+        input['garage'] = input['garage'].astype(int)
+        data['garage'] = data['garage'].astype(int)
+
+        input['cottage'] = input['cottage'].astype(int)
+        data['cottage'] = data['cottage'].astype(int)
+
+        data = pd.concat([data, input], ignore_index=True)  # Combine and reset index
+        print(data.tail())
+
         print(data.tail())
 
         print(data.info())
 
         print(data.sample(20))
-
-        data = data.astype(str)
 
         # Encoding ...
         from sklearn import preprocessing
