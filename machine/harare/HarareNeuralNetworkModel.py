@@ -34,7 +34,7 @@ X = data.drop('price',axis=1)
 y = data['price']
 
 # Split
-X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3,random_state=101)
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=101)
 
 print(X_train.shape)
 print(X_test.shape)
@@ -75,6 +75,10 @@ model.fit(x=X_train, y=y_train.values,
 #Pickel Model
 with open("./machine/harare/HarareNeuralNetworkModel.pkl", "wb") as f:
     pickle.dump(model, f)
+
+# save the scaler
+with open("./machine/harare/HarareNeuralNetworkscaler.pkl", "wb") as f:
+    pickle.dump(scaler, f)
 
 # predictions on the test set
 predictions = model.predict(X_test)
