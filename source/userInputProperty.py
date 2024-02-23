@@ -21,15 +21,18 @@ class predicted:
             # load the model from disk
             model = pickle.load(open("./machine/harare/HararePropertyPredictionModel.pkl", 'rb'))
 
-
             print("Processed text:",preprocessed_input)
             print("Processed text values:",preprocessed_input.values)
             # Model Prediction
-            model_predicted = model.predict(preprocessed_input)
+            columns = ['suburb','density','price','constituency','local_authority']
+            model_predicted = model.predict(preprocessed_input[columns])[0]
 
             print('model_name',model.__class__.__name__)
             print('prediction is', model_predicted)
-                       
+
+            output = model_predicted
+            return output     
+                
         except Exception as e:
                 print("An error occurred:", e)
     
@@ -46,17 +49,11 @@ class predicted:
         print(data.info())
         print(data.sample(20))
 
-        # Encoding ...
+       # Encoding ...
         from sklearn import preprocessing
         LabelEncoder = preprocessing.LabelEncoder()
-
-        # Identify categorical columns
-        categorical_cols = data.select_dtypes(include=['object']).columns
-
-        # Apply LabelEncoder to categorical columns only
-        data[categorical_cols] = data[categorical_cols].apply(LabelEncoder.fit_transform)
-
-        print(data)
+        for col in data.select_dtypes(include=['object']).columns:
+            data[col]= LabelEncoder.fit_transform(data[col])
         
         preprocessed_text = data.tail(1)
         print(preprocessed_text)

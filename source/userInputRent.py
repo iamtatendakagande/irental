@@ -1,13 +1,10 @@
 # Import the necessary libraries.
 import pickle
-import pandas as pd 
-import numpy as np 
-from matplotlib import pyplot as plt
-from sklearn.metrics import mean_absolute_error
+import pandas as pd
 
 # Create a machine learning model.
 class predict:  
-    def __init__(self, features): 
+    def _init_(self, features): 
         self.features = features
         print(self.features)
 
@@ -22,60 +19,45 @@ class predict:
             print(input.shape)
             preprocessed_input = predict.preprocess_text(input)
             # load the model from disk
-            model = pickle.load(open("./machine/harare/HarareRentPredictionModel.pkl", 'rb'))
-
+            model = pickle.load(open("./machine/harare/HarareNeuralNetworkModel.pkl", 'rb'))
 
             print("Processed text:",preprocessed_input)
             print("Processed text values:",preprocessed_input.values)
-            # Model Prediction
-            model_predicted = model.predict(preprocessed_input.values)
+            
+            # features of new house
+            single_house = preprocessed_input
+            print(f'Features of new house:\n{single_house}')
 
-            print('model_name',model.__class__.__name__)
-            print('prediction is', model_predicted)
-            
-            
-            print("Prediction is on index number is {}".format(np.argmax(model_predicted)))
-            predIndex = np.argmax(model_predicted)
-            for option in enumerate(model_predicted):
-                print(f"prediction number: {option[0]},amount {option[1]:.6f}")
-                if option[0] == predIndex:
-                    output = option[1]
-                    print(f"The final prediction is on : {option[0]},and the amount is : {option[1]:.6f}")
-                    return output     
+            # run the model and get the price prediction
+            print('\nPrediction Price:',model.predict(single_house)[0,0])
+            output = model.predict(single_house)[0,0]
+            return output     
         except Exception as e:
                 print("An error occurred:", e)
     
     def preprocess_text(input):
-        data = pd.read_csv('./machine/harare/updated.csv', keep_default_na=False)
-
-        # Option 1: Create a new DataFrame without the column
+        data = pd.read_csv('./machine/dataset/updated.csv', keep_default_na=False)
         data = data.drop('price', axis=1)
+        data = data.astype(str)
 
-        input['rooms'] = input['rooms'].astype(int)
-        data['rooms'] = data['price'].astype(int)
-
-        input['bedroom'] = input['bedroom'].astype(int)
-        data['bedroom'] = data['bedroom'].astype(int)
-
-        input['garage'] = input['garage'].astype(int)
-        data['garage'] = data['garage'].astype(int)
-
-        input['cottage'] = input['cottage'].astype(int)
-        data['cottage'] = data['cottage'].astype(int)
+        data = data.astype({'rooms': 'int','bedroom': 'int', 'toilets':'int', 'ensuite':'int', 'garage':'int', 'cottage':'int'})
+        input = input.astype({'rooms': 'int','bedroom': 'int', 'toilets':'int', 'ensuite':'int', 'garage':'int', 'cottage':'int'})
 
         data = pd.concat([data, input], ignore_index=True)  # Combine and reset index
-        print(data.tail())
-
-        print(data.tail())
-
+        
         print(data.info())
-
+        print(data.tail())
         print(data.sample(20))
+
+        categorical_features = data.select_dtypes('object').columns
+        print(categorical_features)
+
+        print( data[categorical_features])
 
         # Encoding ...
         from sklearn import preprocessing
         LabelEncoder = preprocessing.LabelEncoder()
-        for col in data.select_dtypes(include=['object']).columns:
+        for col in data[categorical_features]:
             data[col]= LabelEncoder.fit_transform(data[col])
 
         preprocessed_text = data.tail(1)

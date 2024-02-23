@@ -94,12 +94,17 @@ def propprediction():
                 features = [suburb, density, price, constituency, local_authority]
                 print(features)
                 output = predicted.userInputed(features)
+                return render_template('rental/output.html', price = output)
+            else:
+               return render_template('rental/property.html') 
         except Exception as e:
             print("An error occurred:", e)
-
-        return render_template('rental/property.html')
+            msg = "suburb not found please download the suburbs file check spelling or upload file using the attached template"
+            print(msg)
+            return render_template('rental/property.html')
     else:
         return render_template('rental/property.html')
+
     
 @app.route("/property")
 def property():

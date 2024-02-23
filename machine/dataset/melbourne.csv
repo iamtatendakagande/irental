@@ -1,4 +1,4 @@
-Suburb,Rooms,Type,Price,Bedroom2,Bathroom,Car,Landsize,CouncilArea,Regionname
+suburb,rooms,type,price,bedroom,bathroom,garage,size,authority,region
 Abbotsford,2,h,1480000,2,1,1,202,Yarra,Northern Metropolitan
 Abbotsford,2,h,1035000,2,1,0,156,Yarra,Northern Metropolitan
 Abbotsford,3,h,1465000,3,2,0,134,Yarra,Northern Metropolitan

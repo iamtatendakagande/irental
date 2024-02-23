@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 
 
 # Read the dataset
-data = pd.read_csv('./machine/harare/property.csv')
+data = pd.read_csv('../dataset/property.csv')
 data = data[['suburb','density','price','rooms','constituency','local_authority']]
 
 print(data.head())

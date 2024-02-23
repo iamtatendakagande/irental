@@ -1,37 +1,30 @@
 {% extends 'partials/user.html' %}
 
 {% block body %}
-<div class="col-xs-12 col-sm-12 col-lg-8 col-lg-offset-2 output-panel">
-    {% for property in properties %} 
-        <div class="col-lg-5 col-sm-6 ">
-            <h6>${{property[1]}} {{property[1]}}</h6>
-            <h6>email : {{property[1]}}</h6>
-            <h6>address : {{property[3]}}</h6> 	    
-            <h6>suburb : {{property[3]}}</h6>          
-            <h6>type_of_property : {{property[3]}}</h6>
-            <h6>rooms : {{property[3]}}</h6>
-            <h6>bedroom : {{property[3]}}</h6>
-            <h6>toilets : {{property[3]}}</h6> 
-            <h6>ensuite : {{property[3]}}</h6>
-            <h6>toilets_type : {{property[3]}}</h6>
-        </div>
+<div class="col-xs-12 col-sm-12 col-lg-8 col-lg-offset-2">
 
-        <div class="col-lg-5 col-sm-6">
-            <h6>garage : {{property[1]}}</h6> 
-            <h6>swimming_pool : {{property[1]}}</h6> 
-            <h6>fixtures_fittings : {{property[1]}}</h6> 
-            <h6>cottage : {{property[1]}}</h6> 
-            <h6>power : {{property[1]}}</h6>
-            <h6>power_backup : {{property[1]}}</h6>
-            <h6>water : {{property[1]}}</h6>   
-            <h6>power_backup : {{property[1]}}</h6>
-            <h6>water_backup : {{property[1]}}</h6>  
-            <h6>power_backup : {{property[1]}}</h6>  
-            <h6>gated_community : {{property[1]}}</h6>  
-            <h6>garden_area : {{property[1]}}</h6> 
-            <h6>description : {{property[1]}}</h6> 
+    {% if properties != 0 %} 
+    <div class="output-panel">
+        {% for property in properties %} 
+            <div class="card">
+                <h5 class="card-header">Featured</h5>
+                <div class="card-body">
+
+                    <p>This property is in {{property[3]}} and has {{property[5]}} rooms, including {{property[6]}} bedrooms. 
+                        It also boasts {{property[7]}} bathrooms, with {{property[8]}} of them being ensuites. Outside, you'll find 
+                        {% if property[11] !=0 %} <p>{{property[11]}} swimming pools</p>{% endif %}
+                        {% if property[10] !=0 %}<p>{{property[10]}} parking spaces</p>{% endif %}
+                        {% if property[19] !=0 %}<p>a lovely garden</p>{% endif %}
+                        {% if property[12] !=0 %}<p>The kitchen is equipped and ready for use.</p>{% endif %}
+
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
         </div>
-    {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}
 

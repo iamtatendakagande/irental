@@ -3,9 +3,9 @@ import pickle
 import pandas as pd 
 from sklearn.preprocessing import LabelEncoder
 
+
 # Read the dataset
 data = pd.read_csv('./machine/melbourne/melbourne.csv')
-data = data[['suburb','density','price','rooms','constituency','local_authority']]
 
 print(data.head())
 print(data.tail())
@@ -41,7 +41,7 @@ for col in data.select_dtypes(include=['object']).columns:
 training_features = list(numeric_features) + list(categorical_features)
 
 # Remove 'Price' Feature from list
-training_features = ['price','suburb','local_authority','constituency','density']
+training_features.remove('price')
 
 # show the final list
 print(training_features)
@@ -54,28 +54,55 @@ minMaxNorm.fit(data[training_features])
 
 #Create `X` data and assignning from `training feature` columns from `data` and make it normalized
 X = minMaxNorm.transform(data[training_features]) 
-Y = data['rooms']  
+
+Y = data['price']  
 Y
 
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import  RandomForestRegressor
+from sklearn.ensemble import  BaggingRegressor 
 from sklearn.ensemble import  AdaBoostRegressor
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.ensemble import  GradientBoostingRegressor
+from xgboost import XGBRegressor
+
+from sklearn.metrics import mean_absolute_error
+
 
 train_X, test_X, train_Y, test_Y = train_test_split(X, Y, random_state = 0)
 print("Total size: ", data.shape[0])
 print("Train size: ", train_X.shape, train_Y.shape)
 print("Test size: ", test_X.shape, test_Y.shape)
 
-# Creating Model
-model = LinearDiscriminantAnalysis()
-# Model Fitting
+xgbr_model = XGBRegressor() # {'objective': 'reg:squarederror' }
+
+params = {
+    'n_estimators': [110, 120, 130, 140], 
+    'learning_rate': [ 0.05, 0.075, 0.1],
+    'max_depth': [ 7, 9],
+    'reg_lambda': [0.3, 0.5]
+}
+
+model = GridSearchCV(estimator=xgbr_model, param_grid=params, cv=5, n_jobs=-1)
+
 model.fit(train_X, train_Y)
 
+model_score = model.best_score_
+
+model_pred = model.predict(test_X)
+
+mae = mean_absolute_error(test_Y, model_pred)
+
+print("Best score: %0.3f" % model.best_score_)
+print("Best parameters set:", model.best_params_)
+
+print("mean_absolute_error :", mae)
+
+
 #Pickel Model
-with open("./machine/harare/HararePropertyPredictionModel.pkl", "wb") as f:
+with open("./machine/melbourne/MelborneRentPredictionModel.pkl", "wb") as f:
     pickle.dump(model, f)
 
-XGBR_model_score = model.score(test_X, test_Y)
-
-print('model_name',model.__class__.__name__)
-print("Best score: ", XGBR_model_score)
+# Model Score
+ADB_model_score = model.score(test_X, test_Y)
+print('prediction_score', ADB_model_score)

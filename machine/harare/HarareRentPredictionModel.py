@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 
 
 # Read the dataset
-data = pd.read_csv('./machine/harare/updated.csv')
+data = pd.read_csv('./machine/dataset/updated.csv')
 
 print(data.head())
 print(data.tail())
