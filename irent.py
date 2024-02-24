@@ -29,39 +29,23 @@ def index():
 @app.route('/pricepredication', methods=['GET', 'POST'])
 def pricepredication():
     if (request.method == "POST"):
+        file = request.files['file']
         try:
-            suburb = request.form.get('suburb')
-            toilet_type = request.form.get('toilet_type')
-            rooms = request.form.get('rooms')
-            bedrooms = request.form.get('bedrooms')
-            toilets = request.form.get('toilets')
-            property_type = request.form.get('properties')
-            ensuites = request.form.get('ensuites')
-            garage = request.form.get('garage')
-            pool = request.form.get('pool')
-            fixtures = request.form.get('fixtures')
-            cottage = request.form.get('cottage')
-            power = request.form.get('power')
-            power_backup = request.form.get('power_backup')
-            water = request.form.get('water')
-            water_backup = request.form.get('water_backup')
-            gated = request.form.get('gated')
-            garden = request.form.get('garden')
-
-            record = connection.post("SELECT * FROM suburbs WHERE suburb = '{}'".format(suburb))
-            print(record)
-            if record != None:
-                local_authority = record[2]
-                constituency = record[1]
-                density = record[4]
+            input = pd.read_csv(file)
             
-                features = [suburb, density, property_type, rooms, bedrooms, toilets, toilet_type, ensuites, local_authority, constituency, garage, pool, 
-                    fixtures, cottage, power, power_backup, water, water_backup, gated, garden]
-                print(features)
-                output = predict.userInput(features)
+            print(input.iloc[0, 0])
+            suburb = input.iloc[0, 0]
+            record = connection.post("SELECT * FROM suburbs WHERE suburb = '{}'".format(suburb))
+            if record != None:
+                input.insert(10, 'local_authority', record[1], True)
+                input.insert(9, 'constituency', record[2], True)
+                input.insert(1, 'density', record[4], True)     
+                print(record)   
+                print(input.tail())
+                output = predict.userInput(input)
                 return render_template('rental/output.html', price = output)
             else:
-               return render_template('rental/price.html') 
+                return render_template('rental/price.html') 
         except Exception as e:
             print("An error occurred:", e)
             msg = "suburb not found please download the suburbs file check spelling or upload file using the attached template"
@@ -69,14 +53,16 @@ def pricepredication():
             return render_template('rental/price.html')
     else:
         return render_template('rental/price.html')
+    
 
-@app.route("/suburb")
-def suburb():
+@app.route("/predication")
+def predication():
     return send_file(
-        "./static/downloads/suburbs.csv",
+        "./static/downloads/predication-price-template.csv",
         mimetype="application/csv",
         download_name="suburbs.csv",
         as_attachment=True,) 
+    
     
 @app.route('/propprediction', methods=['GET', 'POST'])
 def propprediction():
@@ -309,6 +295,6 @@ def edit():
 def search(): 
     properties =  connection.posts("SELECT * FROM properties WHERE email")
     return render_template('rental/edit.html', properties = properties)
-           
+                
 if __name__ == '__main__':
     app.run(debug=True ,use_reloader=True)

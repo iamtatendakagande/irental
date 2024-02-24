@@ -8,16 +8,17 @@ class predict:
         self.features = features
         print(self.features)
 
-    def userInput(features):
+    def userInput(input):
         try:
-            input = pd.DataFrame({'suburb': features[0], 'density': features[1], 'type_of_property': features[2], 'rooms': features[3], 'bedroom': features[4], 
+            """input = pd.DataFrame({'suburb': features[0], 'density': features[1], 'type_of_property': features[2], 'rooms': features[3], 'bedroom': features[4], 
                                     'toilets': features[5], 'toilets_type': features[6], 'ensuite': features[7], 'local_authority': features[8], 'constituency': features[9], 'garage': features[10], 'swimming_pool': features[11],
                                     'fixtures_fittings': features[12], 'cottage': features[13], 'power': features[14], 'power_backup': features[15], 'water': features[16],
                                     'water_backup': features[17], 'gated_community': features[18], 'garden_area': features[19]}, index=[0])
-            #input.to_csv('./machine/dataset/output.csv', index=False)
+            #input.to_csv('./machine/dataset/output.csv', index=False)"""
     
             print(input)          
             print(input.shape)
+            print(input.info())
             preprocessed_input = predict.preprocess_text(input)
             # load the model from disk
             model = pickle.load(open("./machine/harare/HarareNeuralNetworkModel.pkl", 'rb'))
@@ -34,7 +35,7 @@ class predict:
         #input = pd.read_csv('./machine/dataset/output.csv', keep_default_na=False)
         #data = data.drop('price', axis=1)
         
-        data = data.astype(str)
+        #data = data.astype(str)
 
         data = data.astype({'rooms': 'int','bedroom': 'int', 'toilets':'int', 'ensuite':'int', 'garage':'int', 'cottage':'int'})
         input = input.astype({'rooms': 'int','bedroom': 'int', 'toilets':'int', 'ensuite':'int', 'garage':'int', 'cottage':'int'})

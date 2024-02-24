@@ -1,109 +1,109 @@
 suburb,density,type_of_property,price,rooms,bedroom,toilets,ensuite,toilets_type,constituency,local_authority,garage,swimming_pool,fixtures_fittings,cottage,power,power_backup,water,water_backup,gated_community,garden_area
 Unit B,High,House,450,7,4,2,1,Self,Zengeza East,Chitungwiza Municipality,0,0,1,0,1,0,1,0,0,0
 Highfield,High,House,450,6,3,2,1,Self,Highfield,Harare Municipality,2,0,1,0,1,1,1,1,0,1
-Avondale,Low,Cluster,240,2,0,1,0,Shared,Mount Pleasant,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Avondale,Low,Cluster,200,2,0,1,0,Shared,Mount Pleasant,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Domboramwari,Compound,Cluster,80,2,0,1,0,Shared,Hunyani,Epworth Local Board,0,0,0,0,0,0,0,1,0,0
 Zengeza 2,High,House,400,5,3,2,1,Self,Zengeza West,Chitungwiza Municipality,0,0,1,0,1,1,1,1,0,0
 Cranborne,Medium,House,600,5,3,2,1,Self,Sunningdale,Harare Municipality,1,0,1,0,1,0,1,1,0,1
 Riverside,High,House,400,7,3,2,1,Self,Chitungwiza North,Chitungwiza Municipality,2,0,1,0,1,0,1,0,1,1
 Zengeza 4,High,House,300,6,4,2,1,Self,Zengeza East,Chitungwiza Municipality,0,0,1,0,1,0,1,0,0,0
+Mabelreign,Low,Cottage,250,3,1,1,0,Self,Mount Pleasant,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Avondale,Low,Cluster,200,2,0,1,0,Shared,Mount Pleasant,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Bluff Hill,Low,Cottage,350,3,2,1,0,Self,Harare West,Harare Municipality,0,0,0,0,1,0,1,0,0,1
+Westgate,Low,Cottage,400,4,2,1,0,Self,Harare West,Harare Municipality,1,0,1,0,1,1,1,1,0,1
+Bluff Hill,Low,Cottage,450,4,2,1,0,Self,Harare West,Harare Municipality,0,0,0,0,1,0,1,0,0,1
+Mandara,Low,Cottage,450,4,2,1,0,Self,Harare East,Harare Municipality,0,0,1,0,1,0,1,1,0,0
 Borrowdale,Low,Cottage,600,4,2,1,0,Self,Harare East,Harare Municipality,0,0,0,0,1,0,1,1,0,1
-Avondale,Low,House,1500,5,2,1,0,Self,Mount Pleasant,Harare Municipality,0,0,0,0,1,1,1,1,0,0
-Avonlea,Low,House,1200,5,3,2,2,Self,Harare West,Harare Municipality,0,0,1,0,1,1,1,1,0,1
-Marlborough,Low,House,900,5,3,2,1,Self,Harare West,Harare Municipality,0,0,1,0,1,0,1,1,0,1
-Marlborough,Low,House,900,6,3,2,1,Self,Harare West,Harare Municipality,0,0,1,0,1,0,1,1,0,1
-Borrowdale,Low,House,1100,4,2,2,0,Self,Harare East,Harare Municipality,0,0,0,2,1,0,1,1,0,0
-Bluff Hill,Low,Cottage,900,6,3,1,1,Self,Harare West,Harare Municipality,0,0,0,0,1,0,1,0,0,1
 Chadcombe,Medium,House,500,5,3,2,1,Self,Hatfield,Harare Municipality,0,0,1,0,1,0,1,0,0,1
-Marlborough,Low,Flat,1100,4,2,1,1,Self,Harare West,Harare Municipality,0,0,1,0,1,0,1,1,0,0
-Borrowdale West,Low,House,1200,7,5,3,1,Self,Harare East,Harare Municipality,0,0,1,1,1,0,1,0,0,0
+Ashbrittle,Low,House,600,6,3,2,1,Self,Harare West,Harare Municipality,0,0,1,0,1,0,1,0,0,1
 Mount Pleasant,Low,House,650,5,3,1,0,Self,Mount Pleasant,Harare Municipality,0,0,1,0,1,1,1,1,0,1
-Marlborough,Low,House,1200,7,5,6,5,Self,Harare West,Harare Municipality,0,0,0,0,1,1,1,1,0,1
-Mount Pleasant,Low,House,950,5,3,2,1,Self,Mount Pleasant,Harare Municipality,0,0,0,0,1,1,1,1,0,1
-Borrowdale,Low,Flat,1300,6,3,3,3,Self,Harare East,Harare Municipality,2,0,0,0,1,1,1,1,0,0
-Highlands,Low,House,2500,5,3,2,1,Self,Mount Pleasant,Harare Municipality,0,0,1,0,1,1,1,1,0,0
-Waterfalls,Medium,House,550,5,3,2,1,Self,Hatfield,Harare Municipality,1,0,1,0,1,1,1,1,0,1
-Marlborough,Low,House,1500,7,5,3,1,Self,Harare West,Harare Municipality,0,0,1,2,1,1,1,1,0,1
-Stoneridge Park,High,House,200,5,3,2,1,Self,Churu,Harare Municipality,0,0,0,0,0,1,0,1,0,0
+Bluff Hill,Low,Cottage,650,7,4,2,1,Self,Harare West,Harare Municipality,0,0,0,0,1,0,1,0,0,1
+Bluff Hill,Low,Cottage,650,5,2,1,0,Self,Harare West,Harare Municipality,0,0,1,0,1,1,1,1,0,1
+Avondale,Low,House,700,6,3,2,1,Self,Mount Pleasant,Harare Municipality,0,0,0,1,1,0,1,0,0,1
 Mount Pleasant,Low,Cottage,750,5,3,1,0,Self,Mount Pleasant,Harare Municipality,2,0,1,0,1,1,1,1,0,1
+Marlborough,Low,House,900,5,3,2,1,Self,Harare West,Harare Municipality,0,0,1,0,1,0,1,1,0,1
+Waterfalls,Medium,House,550,5,3,2,1,Self,Hatfield,Harare Municipality,1,0,1,0,1,1,1,1,0,1
+Marlborough,Low,House,900,6,3,2,1,Self,Harare West,Harare Municipality,0,0,1,0,1,0,1,1,0,1
+Stoneridge Park,High,House,200,5,3,2,1,Self,Churu,Harare Municipality,0,0,0,0,0,1,0,1,0,0
+Bluff Hill,Low,Cottage,900,6,3,1,1,Self,Harare West,Harare Municipality,0,0,0,0,1,0,1,0,0,1
 Westgate,Low,Flat,900,7,4,2,2,Self,Harare West,Harare Municipality,2,0,1,0,1,0,1,0,0,1
 Chadcombe,Medium,House,650,5,3,1,1,Self,Hatfield,Harare Municipality,0,0,0,0,1,0,1,1,0,1
-Borrowdale,Low,House,1700,6,4,2,1,Self,Harare East,Harare Municipality,0,0,1,3,1,0,1,0,1,1
-Borrowdale,Low,House,1800,7,4,3,2,Self,Harare East,Harare Municipality,2,1,1,0,1,1,1,1,0,1
-Bluff Hill,Low,Cottage,650,7,4,2,1,Self,Harare West,Harare Municipality,0,0,0,0,1,0,1,0,0,1
-Ashbrittle,Low,House,600,6,3,2,1,Self,Harare West,Harare Municipality,0,0,1,0,1,0,1,0,0,1
-Aspindale,Medium,House,550,6,4,2,1,Self,Harare Central,Harare Municipality,0,0,1,0,1,0,1,1,1,1
-Avondale,Low,House,700,6,3,2,1,Self,Mount Pleasant,Harare Municipality,0,0,0,1,1,0,1,0,0,1
+Mount Pleasant,Low,House,950,5,3,2,1,Self,Mount Pleasant,Harare Municipality,0,0,0,0,1,1,1,1,0,1
 Bloomingdale,Low,House,1000,6,4,2,1,Self,Harare West,Harare Municipality,1,0,1,0,1,1,1,1,0,1
 Avenues,Low,Flat,1000,5,3,2,1,Self,Harare Central,Harare Municipality,1,0,1,0,1,0,1,1,0,0
+Borrowdale,Low,House,1100,4,2,2,0,Self,Harare East,Harare Municipality,0,0,0,2,1,0,1,1,0,0
+Aspindale,Medium,House,550,6,4,2,1,Self,Harare Central,Harare Municipality,0,0,1,0,1,0,1,1,1,1
+Marlborough,Low,Flat,1100,4,2,1,1,Self,Harare West,Harare Municipality,0,0,1,0,1,0,1,1,0,0
+Mount Pleasant,Low,House,1100,7,4,2,1,Self,Mount Pleasant,Harare Municipality,0,0,1,0,1,1,1,1,0,1
+Avonlea,Low,House,1200,5,3,2,2,Self,Harare West,Harare Municipality,0,0,1,0,1,1,1,1,0,1
+Borrowdale West,Low,House,1200,7,5,3,1,Self,Harare East,Harare Municipality,0,0,1,1,1,0,1,0,0,0
+Marlborough,Low,House,1200,7,5,6,5,Self,Harare West,Harare Municipality,0,0,0,0,1,1,1,1,0,1
 Avenues,Low,Flat,1200,4,2,1,0,Self,Harare Central,Harare Municipality,0,0,1,0,1,0,1,1,0,0
-Avenues,Low,Flat,2200,7,3,3,2,Self,Harare Central,Harare Municipality,0,0,1,0,1,0,1,1,0,0
-Avondale,Low,Flat,3000,12,5,4,1,Self,Mount Pleasant,Harare Municipality,2,1,1,3,1,1,1,1,0,1
 Budiriro 4,High,House,500,6,4,2,1,Self,Budiriro North,Harare Municipality,0,0,0,0,1,0,1,1,0,0
 Chadcombe,Medium,House,650,6,3,2,1,Self,Hatfield,Harare Municipality,4,0,1,3,0,0,1,0,0,1
 Avondale,Low,Flat,1200,4,2,1,0,Self,Mount Pleasant,Harare Municipality,1,0,1,0,1,0,1,1,0,1
-Avondale,Low,Cluster,200,2,0,1,0,Shared,Mount Pleasant,Harare Municipality,0,0,0,0,1,0,1,0,0,0
-Chisipite,Low,House,2000,6,3,2,1,Self,Mount Pleasant,Harare Municipality,2,1,1,3,1,1,1,1,0,1
+Westgate,Low,House,1200,7,4,2,1,Self,Harare West,Harare Municipality,2,0,1,1,1,0,1,1,0,1
+Belvedere,Low,House,1200,7,4,2,1,Self,Harare Central,Harare Municipality,0,0,1,0,1,0,1,0,0,1
 Western Triangle,High,Cluster,180,3,1,1,0,Shared,Glenview North,Harare Municipality,0,0,0,0,1,0,1,0,0,1
 Unit B,High,House,260,4,2,1,0,Self,Zengeza East,Chitungwiza Municipality,0,0,0,0,1,0,1,0,0,0
-Mount Pleasant,Low,House,1500,6,4,2,1,Self,Mount Pleasant,Harare Municipality,2,1,1,0,1,1,1,1,0,1
-Mabelreign,Low,House,1300,6,3,2,1,Self,Mount Pleasant,Harare Municipality,2,1,1,0,1,0,1,1,0,1
-Bluff Hill,Low,Cottage,650,5,2,1,0,Self,Harare West,Harare Municipality,0,0,1,0,1,1,1,1,0,1
-Borrowdale,Low,House,1800,7,4,4,2,Self,Harare East,Harare Municipality,2,1,1,0,1,0,1,1,0,1
+Mount Pleasant,Low,House,1200,7,4,2,1,Self,Mount Pleasant,Harare Municipality,2,0,1,0,1,1,1,1,0,1
+Mount Pleasant,Low,House,1200,8,4,2,1,Self,Mount Pleasant,Harare Municipality,2,0,1,0,1,1,1,1,0,1
+Westgate,Low,House,1250,7,5,2,1,Self,Harare West,Harare Municipality,1,0,1,2,1,1,1,1,0,1
+Borrowdale,Low,Flat,1300,6,3,3,3,Self,Harare East,Harare Municipality,2,0,0,0,1,1,1,1,0,0
 Vainona,Medium,Cottage,600,4,2,1,0,Self,Hatcliffe,Harare Municipality,0,0,1,0,1,0,1,0,0,1
-Bluff Hill,Low,Cottage,450,4,2,1,0,Self,Harare West,Harare Municipality,0,0,0,0,1,0,1,0,0,1
+Mabelreign,Low,House,1300,6,3,2,1,Self,Mount Pleasant,Harare Municipality,2,1,1,0,1,0,1,1,0,1
 Unit F,High,House,200,4,2,1,0,Self,Chitungwiza North,Chitungwiza Municipality,0,0,0,0,1,0,1,1,0,1
 Unit K,High,House,200,4,2,1,0,Self,Chitungwiza South,Chitungwiza Municipality,0,0,0,0,1,0,1,1,0,0
 Zengeza 4,High,Cluster,180,3,1,1,0,Shared,Zengeza East,Chitungwiza Municipality,0,0,0,0,1,0,1,1,0,0
-Highlands,Low,House,2500,6,4,4,3,Self,Mount Pleasant,Harare Municipality,1,1,1,0,1,1,1,1,1,1
+Westgate,Low,House,1300,7,4,2,1,Self,Harare West,Harare Municipality,2,1,1,0,1,1,1,1,0,1
 Chadcombe,Medium,Cottage,450,5,3,1,0,Self,Hatfield,Harare Municipality,0,0,0,0,1,0,1,0,0,1
-Highlands,Low,House,3000,6,4,3,2,Self,Mount Pleasant,Harare Municipality,1,1,1,0,1,1,1,1,0,1
-Mandara,Low,Cottage,450,4,2,1,0,Self,Harare East,Harare Municipality,0,0,1,0,1,0,1,1,0,0
+Avondale,Low,House,1500,5,2,1,0,Self,Mount Pleasant,Harare Municipality,0,0,0,0,1,1,1,1,0,0
+Marlborough,Low,House,1500,7,5,3,1,Self,Harare West,Harare Municipality,0,0,1,2,1,1,1,1,0,1
 Waterfalls,Medium,House,550,6,4,2,1,Self,Hatfield,Harare Municipality,0,0,1,0,1,0,1,1,0,1
 Waterfalls,Medium,House,650,6,3,2,1,Self,Hatfield,Harare Municipality,0,0,1,0,1,0,1,1,0,1
-Chisipite,Low,Flat,3000,7,5,3,1,Self,Mount Pleasant,Harare Municipality,2,1,1,2,1,1,1,1,0,1
+Mount Pleasant,Low,House,1500,6,4,2,1,Self,Mount Pleasant,Harare Municipality,2,1,1,0,1,1,1,1,0,1
 Hatfield,Medium,House,800,6,3,2,1,Self,Hatfield,Harare Municipality,2,0,0,0,1,1,1,1,0,1
 Warren Park,High,House,550,6,3,2,1,Self,Harare Central,Harare Municipality,0,0,0,3,1,0,1,1,0,1
-Chisipite,Low,Flat,2500,7,4,3,2,Self,Mount Pleasant,Harare Municipality,2,0,2,0,1,1,1,1,0,1
+Ashbrittle,Low,House,1500,8,4,2,1,Self,Harare West,Harare Municipality,0,0,1,0,1,0,1,1,0,1
+Mandara,Low,House,1500,8,4,3,1,Self,Harare East,Harare Municipality,2,0,1,1,1,1,1,1,0,1
+Borrowdale,Low,House,1700,6,4,2,1,Self,Harare East,Harare Municipality,0,0,1,3,1,0,1,0,1,1
+Highlands,Low,House,1700,7,4,3,2,Self,Mount Pleasant,Harare Municipality,1,1,1,0,1,1,1,1,0,1
+Borrowdale,Low,House,1800,7,4,3,2,Self,Harare East,Harare Municipality,2,1,1,0,1,1,1,1,0,1
+Borrowdale,Low,House,1800,7,4,4,2,Self,Harare East,Harare Municipality,2,1,1,0,1,0,1,1,0,1
+Highlands,Low,House,1800,8,4,3,1,Self,Mount Pleasant,Harare Municipality,2,1,1,1,1,0,1,1,0,1
 Marlborough,Low,House,1900,5,3,3,2,Self,Harare West,Harare Municipality,0,0,1,0,1,1,1,1,0,1
+Chisipite,Low,House,2000,6,3,2,1,Self,Mount Pleasant,Harare Municipality,2,1,1,3,1,1,1,1,0,1
 Borrowdale West,Low,Flat,2000,5,3,1,0,Self,Harare East,Harare Municipality,1,0,1,1,1,1,1,1,0,0
 Borrowdale West,Low,Cottage,2000,5,3,2,1,Self,Harare East,Harare Municipality,0,0,1,2,1,0,1,0,0,1
 Borrowdale,Low,House,2000,8,4,3,2,Self,Harare East,Harare Municipality,0,1,0,1,1,0,1,1,0,1
+Highlands,Low,House,2000,7,4,2,1,Self,Mount Pleasant,Harare Municipality,2,1,1,1,1,1,1,1,0,1
+Avenues,Low,Flat,2200,7,3,3,2,Self,Harare Central,Harare Municipality,0,0,1,0,1,0,1,1,0,0
 Borrowdale Brooke,Low,House,2300,7,4,3,2,Self,Harare East,Harare Municipality,1,0,1,1,1,0,1,1,0,1
-Borrowdale,Low,House,2500,7,2,2,1,Self,Harare East,Harare Municipality,0,1,1,0,1,1,1,0,0,1
-Borrowdale,Low,House,2700,6,4,3,2,Self,Harare East,Harare Municipality,2,1,1,0,1,0,1,1,0,1
-Borrowdale Brooke,Low,Flat,3000,9,4,4,4,Self,Harare East,Harare Municipality,1,1,1,0,1,1,1,1,1,1
-Borrowdale,Low,Flat,3000,7,4,3,1,Self,Harare East,Harare Municipality,0,1,1,0,1,0,1,1,1,1
-Borrowdale Brooke,Low,House,3000,7,4,2,1,Self,Harare East,Harare Municipality,0,1,1,1,1,1,1,1,1,1
-Borrowdale Brooke,Low,House,3000,7,3,2,1,Self,Harare East,Harare Municipality,0,0,1,0,1,0,1,0,0,1
-Westgate,Low,House,1300,7,4,2,1,Self,Harare West,Harare Municipality,2,1,1,0,1,1,1,1,0,1
-Westgate,Low,House,1200,7,4,2,1,Self,Harare West,Harare Municipality,2,0,1,1,1,0,1,1,0,1
-Westgate,Low,House,1250,7,5,2,1,Self,Harare West,Harare Municipality,1,0,1,2,1,1,1,1,0,1
-Arlington,Low,House,2500,7,4,2,1,Self,Hunyani,Harare Municipality,2,0,1,0,1,1,1,1,0,1
-Belvedere,Low,House,1200,7,4,2,1,Self,Harare Central,Harare Municipality,0,0,1,0,1,0,1,0,0,1
-Chisipite,Low,House,2500,7,3,2,1,Self,Mount Pleasant,Harare Municipality,2,1,1,3,1,1,1,0,0,1
+Mandara,Low,House,2300,9,5,4,3,Self,Harare East,Harare Municipality,2,1,1,3,1,1,1,1,1,1
+Highlands,Low,House,2500,5,3,2,1,Self,Mount Pleasant,Harare Municipality,0,0,1,0,1,1,1,1,0,0
+Highlands,Low,House,2500,6,4,4,3,Self,Mount Pleasant,Harare Municipality,1,1,1,0,1,1,1,1,1,1
 Arcadia,Medium,Cottage,450,3,2,1,0,Self,Sunningdale,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Zengeza 4,High,Cluster,180,3,1,1,0,Shared,Zengeza East,Chitungwiza Municipality,0,0,0,0,1,0,1,0,0,1
-Borrowdale Brooke,Low,House,3000,8,3,3,1,Self,Harare East,Harare Municipality,0,0,1,0,1,0,1,0,1,1
-Borrowdale Brooke,Low,House,3000,8,4,3,2,Self,Harare East,Harare Municipality,2,0,1,3,1,1,1,0,1,1
-Mount Pleasant,Low,House,2600,7,5,4,3,Self,Mount Pleasant,Harare Municipality,0,1,1,0,1,1,1,1,0,1
-Mount Pleasant,Low,House,1100,7,4,2,1,Self,Mount Pleasant,Harare Municipality,0,0,1,0,1,1,1,1,0,1
+Chisipite,Low,Flat,2500,7,4,3,2,Self,Mount Pleasant,Harare Municipality,2,0,2,0,1,1,1,1,0,1
+Borrowdale,Low,House,2500,7,2,2,1,Self,Harare East,Harare Municipality,0,1,1,0,1,1,1,0,0,1
+Arlington,Low,House,2500,7,4,2,1,Self,Hunyani,Harare Municipality,2,0,1,0,1,1,1,1,0,1
+Chisipite,Low,House,2500,7,3,2,1,Self,Mount Pleasant,Harare Municipality,2,1,1,3,1,1,1,0,0,1
 Mount Pleasant,Low,House,2500,7,4,3,2,Self,Mount Pleasant,Harare Municipality,0,0,1,1,1,1,1,1,0,1
-Westgate,Low,Cottage,400,4,2,1,0,Self,Harare West,Harare Municipality,1,0,1,0,1,1,1,1,0,1
-Mount Pleasant,Low,House,1200,7,4,2,1,Self,Mount Pleasant,Harare Municipality,2,0,1,0,1,1,1,1,0,1
 Highlands,Low,House,2500,7,3,2,1,Self,Mount Pleasant,Harare Municipality,3,0,1,0,1,1,1,1,1,1
-Mount Pleasant,Low,House,2800,7,4,1,1,Self,Mount Pleasant,Harare Municipality,1,1,1,0,1,0,1,0,0,1
-Highlands,Low,House,2000,7,4,2,1,Self,Mount Pleasant,Harare Municipality,2,1,1,1,1,1,1,1,0,1
-Highlands,Low,House,1700,7,4,3,2,Self,Mount Pleasant,Harare Municipality,1,1,1,0,1,1,1,1,0,1
+Mount Pleasant,Low,House,2500,9,5,4,3,Self,Mount Pleasant,Harare Municipality,2,0,1,3,1,1,1,1,0,1
+Mount Pleasant,Low,House,2500,9,4,2,1,Self,Mount Pleasant,Harare Municipality,0,1,1,4,1,0,1,1,0,1
+Chisipite,Low,House,2500,13,7,6,2,Self,Mount Pleasant,Harare Municipality,4,1,1,3,1,0,1,1,0,1
+Mount Pleasant,Low,House,2600,7,5,4,3,Self,Mount Pleasant,Harare Municipality,0,1,1,0,1,1,1,1,0,1
+Borrowdale,Low,House,2700,6,4,3,2,Self,Harare East,Harare Municipality,2,1,1,0,1,0,1,1,0,1
 Zengeza 4,High,Cluster,180,4,2,1,0,Shared,Zengeza East,Chitungwiza Municipality,0,0,0,0,1,0,1,0,0,0
 Adelaide Park,High,House,400,7,3,2,1,Self,Epworth South,Epworth Local Board,0,0,1,0,1,1,1,1,0,0
 Ardbennie,High,House,450,7,3,2,1,Self,Mbare,Harare Municipality,0,0,0,0,1,1,1,0,0,0
 Hatcliffe,High,House,400,7,3,1,0,Self,Hatcliffe,Harare Municipality,0,0,1,0,1,0,1,0,0,0
 Budiriro 5,High,House,300,7,3,2,1,Self,Budiriro South,Harare Municipality,0,0,0,0,1,0,1,0,0,1
-Bluff Hill,Low,Cottage,350,3,2,1,0,Self,Harare West,Harare Municipality,0,0,0,0,1,0,1,0,0,1
-Borrowdale,Low,Flat,3500,7,4,3,2,Self,Harare East,Harare Municipality,1,1,1,1,1,1,1,0,0,1
-Borrowdale,Low,Flat,3500,9,5,4,2,Self,Harare East,Harare Municipality,2,0,1,2,1,0,1,1,0,1
-Borrowdale West,Low,Flat,3500,8,5,4,2,Self,Harare East,Harare Municipality,2,1,1,1,1,1,1,1,0,1
+Mount Pleasant,Low,House,2800,7,4,1,1,Self,Mount Pleasant,Harare Municipality,1,1,1,0,1,0,1,0,0,1
+Avondale,Low,Flat,3000,12,5,4,1,Self,Mount Pleasant,Harare Municipality,2,1,1,3,1,1,1,1,0,1
+Highlands,Low,House,3000,6,4,3,2,Self,Mount Pleasant,Harare Municipality,1,1,1,0,1,1,1,1,0,1
+Chisipite,Low,Flat,3000,7,5,3,1,Self,Mount Pleasant,Harare Municipality,2,1,1,2,1,1,1,1,0,1
 Manyame Park,High,Cluster,160,3,1,1,0,Shared,St Marys,Chitungwiza Municipality,0,0,0,0,1,0,1,0,0,0
 St Marys,High,Cluster,160,2,0,1,0,Shared,St Marys,Chitungwiza Municipality,0,0,0,0,1,0,1,0,0,0
 Zengeza 1,High,Cluster,150,3,1,1,0,Shared,St Marys,Chitungwiza Municipality,0,0,0,0,1,0,1,0,0,0
@@ -115,7 +115,7 @@ Unit G,High,Cluster,130,2,0,1,0,Shared,Chitungwiza North,Chitungwiza Municipalit
 Unit O,High,Cluster,125,1,0,1,0,Shared,Chitungwiza North,Chitungwiza Municipality,0,0,0,0,1,0,1,0,0,1
 Unit P,High,Cluster,120,2,1,1,1,Shared,Chitungwiza North,Chitungwiza Municipality,0,0,0,0,1,0,1,1,0,0
 Unit M,High,Cluster,120,2,0,1,0,Shared,Chitungwiza South,Chitungwiza Municipality,0,0,0,0,1,0,1,0,0,0
-Borrowdale,Low,House,3500,7,2,2,1,Self,Harare East,Harare Municipality,0,0,1,0,1,0,1,0,0,0
+Borrowdale Brooke,Low,Flat,3000,9,4,4,4,Self,Harare East,Harare Municipality,1,1,1,0,1,1,1,1,1,1
 Unit L,High,Cluster,120,2,0,1,0,Shared,Chitungwiza South,Chitungwiza Municipality,0,0,0,0,1,0,1,0,0,0
 Zengeza 3,High,Cluster,120,3,0,1,0,Shared,Zengeza West,Chitungwiza Municipality,0,0,0,0,0,0,0,0,0,0
 Nyatsime,High,Cluster,120,2,0,1,0,Shared,Zengeza West,Chitungwiza Municipality,0,0,0,0,1,0,0,0,0,0
@@ -124,7 +124,7 @@ Eyestone,High,Cluster,120,4,2,1,0,Self,Harare South,Harare Municipality,0,0,0,0,
 Zengeza 4,High,Cluster,120,2,0,1,0,Shared,Zengeza East,Chitungwiza Municipality,0,0,0,0,1,0,1,1,0,0
 Derbshire Village Farm,Compound,Cottage,120,4,0,1,0,Shared,Hunyani,Harare Municipality,0,0,0,0,0,0,0,1,0,0
 Logan Park,High,Cottage,120,1,0,1,1,Shared,Hunyani,Harare Municipality,0,0,0,0,0,0,0,1,0,0
-Borrowdale,Low,House,3500,8,5,3,2,Self,Harare East,Harare Municipality,0,0,1,1,1,0,1,1,0,1
+Borrowdale,Low,Flat,3000,7,4,3,1,Self,Harare East,Harare Municipality,0,1,1,0,1,0,1,1,1,1
 Unit D,High,Cluster,100,3,0,1,0,Shared,Zengeza East,Chitungwiza Municipality,0,0,0,0,1,0,0,0,0,0
 Crestbreeders,Compound,Cottage,100,3,0,1,0,Shared,Churu,Harare Municipality,0,0,0,0,0,0,0,1,0,0
 Unit C,High,Cluster,90,2,0,1,0,Shared,Zengeza East,Chitungwiza Municipality,0,0,0,0,1,0,1,0,0,0
@@ -140,8 +140,8 @@ Adelaide Park,High,Cottage,250,4,2,1,0,Self,Epworth South,Epworth Local Board,0,
 Makomo,Compound,Cluster,80,2,0,1,0,Shared,Epworth North,Epworth Local Board,0,0,0,0,0,0,0,1,0,0
 Balancing Rocks,Compound,Cluster,80,2,0,1,0,Shared,Epworth North,Epworth Local Board,0,0,0,0,1,0,1,0,0,0
 Muguta,Compound,Cluster,80,2,0,1,0,Shared,Epworth North,Epworth Local Board,0,0,0,0,0,0,0,1,0,0
-Borrowdale Brooke,Low,House,4000,8,6,7,6,Self,Harare East,Harare Municipality,2,0,1,3,1,1,1,1,1,1
-Ashbrittle,Low,House,1500,8,4,2,1,Self,Harare West,Harare Municipality,0,0,1,0,1,0,1,1,0,1
+Borrowdale Brooke,Low,House,3000,7,4,2,1,Self,Harare East,Harare Municipality,0,1,1,1,1,1,1,1,1,1
+Borrowdale Brooke,Low,House,3000,7,3,2,1,Self,Harare East,Harare Municipality,0,0,1,0,1,0,1,0,0,1
 Zinyengere,Compound,Cluster,80,3,0,1,0,Shared,Hunyani,Epworth Local Board,0,0,0,0,0,0,0,0,0,0
 Chinamano,Compound,Cluster,75,2,0,1,0,Shared,Epworth South,Epworth Local Board,0,0,0,0,1,0,0,0,0,0
 Magada,Compound,Cluster,70,2,0,1,0,Shared,Epworth South,Epworth Local Board,0,0,0,0,1,0,1,0,0,0
@@ -155,19 +155,19 @@ Westview,Compound,Cluster,60,1,1,1,0,Shared,Epworth South,Epworth Local Board,0,
 Solani,Compound,Cluster,60,1,0,1,0,Shared,Epworth South,Epworth Local Board,0,0,0,0,1,0,1,0,0,0
 Tynwald,Medium,Cottage,250,3,0,1,0,Self,Harare West,Harare Municipality,0,0,0,0,1,0,1,0,0,1
 Epworth,Compound,Cluster,60,2,0,1,0,Shared,Epworth South,Epworth Local Board,0,0,0,0,0,0,0,0,0,0
-Mount Pleasant,Low,House,1200,8,4,2,1,Self,Mount Pleasant,Harare Municipality,2,0,1,0,1,1,1,1,0,1
+Borrowdale Brooke,Low,House,3000,8,3,3,1,Self,Harare East,Harare Municipality,0,0,1,0,1,0,1,0,1,1
 Waterfalls,Medium,Cottage,210,3,0,1,0,Self,Hatfield,Harare Municipality,0,0,0,0,1,0,1,0,0,1
 Garikai,Compound,Cluster,60,1,0,1,0,Shared,Epworth North,Epworth Local Board,0,0,0,0,1,0,1,1,0,0
 Mabvazuva,Compound,Cluster,60,2,0,1,0,Shared,Epworth North,Epworth Local Board,0,0,0,0,0,0,0,0,0,0
 Rockdale,Compound,Cluster,60,2,0,1,0,Shared,Epworth North,Epworth Local Board,0,0,0,0,0,0,0,0,0,0
-Mount Pleasant,Low,House,3500,8,5,3,1,Self,Mount Pleasant,Harare Municipality,2,1,1,4,1,0,1,1,0,1
+Borrowdale Brooke,Low,House,3000,8,4,3,2,Self,Harare East,Harare Municipality,2,0,1,3,1,1,1,0,1,1
 Churu Farm,Compound,Cluster,60,2,9,1,0,Shared,Churu,Harare Municipality,0,0,0,0,0,0,1,1,0,0
 Bellapaise,Compound,Cottage,60,2,0,1,0,Shared,Hunyani,Harare Municipality,0,0,0,0,0,0,0,1,0,0
 Ushewokunze,High,Cluster,55,1,0,1,0,Shared,Churu,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Southview Park,High,Cluster,55,1,0,1,0,Shared,Churu,Harare Municipality,0,0,0,0,1,0,1,0,0,0
-Highlands,Low,House,1800,8,4,3,1,Self,Mount Pleasant,Harare Municipality,2,1,1,1,1,0,1,1,0,1
-Mandara,Low,House,1500,8,4,3,1,Self,Harare East,Harare Municipality,2,0,1,1,1,1,1,1,0,1
-Mabelreign,Low,Cottage,200,3,1,1,0,Self,Mount Pleasant,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Chisipite,Low,House,3000,9,5,3,2,Self,Mount Pleasant,Harare Municipality,2,1,1,2,1,0,1,1,0,1
+Borrowdale,Low,Flat,3500,7,4,3,2,Self,Harare East,Harare Municipality,1,1,1,1,1,1,1,0,0,1
+Borrowdale,Low,Flat,3500,9,5,4,2,Self,Harare East,Harare Municipality,2,0,1,2,1,0,1,1,0,1
 Braeside,Medium,Cluster,55,1,0,1,0,Shared,Sunningdale,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Nettleton,Medium,Cluster,50,1,0,1,0,Shared,Sunningdale,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Queensdale,Medium,Cluster,50,1,0,1,0,Shared,Sunningdale,Harare Municipality,0,0,0,0,1,0,1,0,0,0
@@ -176,27 +176,68 @@ Stoneridge,High,Cluster,50,1,0,1,0,Shared,Churu,Harare Municipality,0,0,0,0,1,0,
 Rugare,High,Cottage,200,3,0,1,0,Self,Southerton,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Marimba,High,Cottage,200,3,2,1,0,Self,Southerton,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Southlea Park,High,Cluster,48,1,0,1,0,Shared,Churu,Harare Municipality,0,0,0,0,1,0,1,1,0,0
-Chisipite,Low,House,3000,9,5,3,2,Self,Mount Pleasant,Harare Municipality,2,1,1,2,1,0,1,1,0,1
-Mount Pleasant,Low,House,2500,9,5,4,3,Self,Mount Pleasant,Harare Municipality,2,0,1,3,1,1,1,1,0,1
+Borrowdale West,Low,Flat,3500,8,5,4,2,Self,Harare East,Harare Municipality,2,1,1,1,1,1,1,1,0,1
+Borrowdale,Low,House,3500,7,2,2,1,Self,Harare East,Harare Municipality,0,0,1,0,1,0,1,0,0,0
 Amsterdam Park,High,Cluster,45,1,0,1,0,Shared,Churu,Harare Municipality,0,0,0,0,1,0,1,0,0,0
-Mount Pleasant,Low,House,2500,9,4,2,1,Self,Mount Pleasant,Harare Municipality,0,1,1,4,1,0,1,1,0,1
-Mandara,Low,House,2300,9,5,4,3,Self,Harare East,Harare Municipality,2,1,1,3,1,1,1,1,1,1
+Borrowdale,Low,House,3500,8,5,3,2,Self,Harare East,Harare Municipality,0,0,1,1,1,0,1,1,0,1
+Mount Pleasant,Low,House,3500,8,5,3,1,Self,Mount Pleasant,Harare Municipality,2,1,1,4,1,0,1,1,0,1
 Davis Granite,High,Cluster,45,1,0,1,0,Shared,Hunyani,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Sheena Flowers,High,Cluster,45,1,0,1,0,Shared,Hunyani,Harare Municipality,0,0,0,0,0,0,0,0,0,0
 Avondale,Low,House,3500,12,5,5,1,Self,Mount Pleasant,Harare Municipality,2,1,1,3,1,1,1,1,0,1
 Dawnview,High,Cottage,200,3,1,1,0,Self,Warren Park,Harare Municipality,0,0,0,0,1,0,1,0,0,0
-Chisipite,Low,House,2500,13,7,6,2,Self,Mount Pleasant,Harare Municipality,4,1,1,3,1,0,1,1,0,1
+Borrowdale Brooke,Low,House,4000,8,6,7,6,Self,Harare East,Harare Municipality,2,0,1,3,1,1,1,1,1,1
 Budiriro 3,High,Cottage,160,3,0,1,0,Self,Glenview North,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Glaudina,High,House,400,7,4,2,1,Self,Dzivarasekwa,Harare Municipality,1,0,1,0,1,0,1,1,0,0
 Butler Farm,Compound,Cluster,40,1,1,1,0,Shared,Hunyani,Harare Municipality,0,0,0,0,1,0,1,1,0,0
+Dzivarasekwa,High,Cluster,350,7,4,2,1,Self,Dzivarasekwa,Harare Municipality,0,0,0,0,1,0,1,1,0,0
 Dankwerts Farm,Compound,Cluster,40,1,0,1,0,Shared,Hunyani,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Glenwood Park,High,Cottage,150,3,0,1,0,Self,Hunyani,Epworth Local Board,0,0,0,0,1,0,0,1,0,0
 Warren Park,High,Cottage,140,2,0,1,0,Self,Harare Central,Harare Municipality,1,0,0,0,1,0,1,0,0,0
 Retreat Park,High,Cluster,30,1,0,1,0,Shared,Hunyani,Harare Municipality,0,0,0,0,0,0,0,0,0,0
 Kambuzuma,High,Cottage,125,2,0,1,0,Self,Harare Central,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Eyecourt,High,Cluster,30,2,0,1,0,Shared,Harare South,Harare Municipality,0,0,0,0,0,0,0,0,0,0
-Aspindale,Medium,Cluster,30,2,0,1,0,Shared,Harare Central,Harare Municipality,0,0,0,0,0,0,0,1,0,0
+Kuwadzana 6,High,Cluster,330,6,4,2,1,Self,Kuwadzana East,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Aspindale,Medium,Cluster,140,2,0,1,0,Shared,Harare Central,Harare Municipality,0,0,0,0,1,0,1,1,0,0
+Glen Norah,High,Cluster,320,6,3,2,1,Self,Glen Norah,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Lochinvar,High,Cluster,300,6,3,2,0,Shared,Southerton,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Drycoat Farm,Compound,Cluster,30,1,0,1,0,Shared,Hunyani,Harare Municipality,0,0,0,0,0,0,0,1,0,0
+Kuwadzana 5,High,Cluster,300,5,3,1,0,Shared,Kuwadzana West,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Willovale Industry,High,Flat,300,4,2,1,0,Self,Glenview North,Harare Municipality,0,0,1,0,1,0,1,0,0,0
+Kuwadzana 3,High,Cluster,275,5,3,2,0,Shared,Kuwadzana East,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Mabvuku,High,Cluster,255,5,2,2,0,Shared,Mabvuku Tafara,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Kuwadzana 8,High,Cluster,250,5,2,2,0,Shared,Kuwadzana West,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Panguola Farm,Compound,Cluster,30,2,0,1,0,Shared,Harare East,Harare Municipality,0,0,0,0,0,0,0,1,0,0
+Sunningdale,High,Cluster,240,4,2,1,0,Shared,Sunningdale,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Granary,High,Cluster,220,4,2,1,0,Shared,Budiriro North,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Kuwadzana 7,High,Cluster,200,4,2,1,0,Shared,Kuwadzana West,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Westwood,High,Cluster,195,3,1,1,0,Shared,Harare Central,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Houghton Park,High,Cluster,180,3,1,1,0,Shared,Sunningdale,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Budiriro 2,High,Cluster,165,3,1,1,0,Shared,Budiriro South,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Kuwadzana 2,High,Cluster,150,3,1,1,0,Shared,Kuwadzana East,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Manresa Park,High,Cottage,130,2,0,1,1,Self,Harare East,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Mufakose,High,Cluster,130,2,0,1,0,Shared,Southerton,Harare Municipality,0,0,0,0,1,0,1,1,0,0
+Beverly East,High,Cluster,120,2,0,1,0,Shared,Harare East,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Parkridge,High,Cluster,120,2,0,1,0,Shared,Kuwadzana West,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Budiriro 1,High,Cluster,110,2,0,1,0,Shared,Budiriro South,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Herbet Chitepo,High,Cluster,110,2,0,1,0,Shared,Kuwadzana West,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Crowborough,High,Cluster,110,2,0,1,0,Shared,Kuwadzana West,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Kuwadzana 4,High,Cluster,90,2,0,1,0,Shared,Kuwadzana West,Harare Municipality,0,0,0,0,1,0,1,0,0,0
 Cold Comfort,High,Cluster,25,1,0,1,0,Shared,Warren Park,Harare Municipality,0,0,0,0,0,0,0,0,0,0
-Goodhope,Medium,Cluster,25,1,0,1,0,Shared,Harare West,Harare Municipality,0,0,0,0,0,0,0,0,0,0
+Devine Events,High,Cluster,85,2,0,1,0,Shared,Hatcliffe,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Southlands,High,Cluster,80,1,0,1,0,Shared,Harare South,Harare Municipality,0,0,0,0,1,0,0,1,0,0
+Budiriro 4,High,Cluster,75,1,0,1,0,Shared,Budiriro North,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Southerton,High,Cluster,65,1,0,1,0,Shared,Southerton,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Glen View,High,Cluster,55,1,0,1,0,Shared,Glenview South,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Kuwadzana 1,High,Cluster,50,1,0,1,0,Shared,Kuwadzana East,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Goodhope,Medium,Cluster,60,1,0,1,0,Shared,Harare West,Harare Municipality,0,0,0,0,1,0,1,0,0,0
+Hopley,High,Cluster,40,1,0,1,0,Shared,Harare South,Harare Municipality,0,0,0,0,1,0,0,1,0,0
+Parktown,Medium,House,800,6,4,2,1,self,Hatfield,Harare Municipality,2,0,1,2,1,1,1,1,0,1
+Parktown,Medium,House,600,5,3,2,1,self,Hatfield,Harare Municipality,0,0,1,0,1,1,1,1,0,1
+Helensvale,Low,Flat,1200,6,3,2,1,Self,Harare East,Harare Municipality,2,0,1,1,1,0,1,0,0,1
+Helensvale,Low,House,2000,7,4,2,1,Self,Harare East,Harare Municipality,2,0,1,0,1,1,1,1,0,1
+Helensvale,Low,House,1800,7,4,3,2,Self,Harare East,Harare Municipality,0,0,1,0,1,1,1,1,0,1
+Helensvale,Low,Cottage,700,4,3,1,0,Self,Harare East,Harare Municipality,1,0,1,0,1,0,1,1,0,0
+ Shawasha Hills ,Low,House,2500,8,5,3,2,Self,Harare East,Harare Municipality,2,0,1,0,1,1,1,1,0,1
+ Shawasha Hills ,Low,House,1400,7,4,4,3,Self,Harare East,Harare Municipality,2,0,1,1,1,0,1,1,0,1
+ Shawasha Hills ,Low,Cluster,350,2,1,1,0,Self,Harare East,Harare Municipality,0,1,1,1,1,0,1,1,0,1
+ Shawasha Hills ,Low,House,5000,7,4,4,1,Self,Harare East,Harare Municipality,2,1,1,1,1,1,1,1,0,1
