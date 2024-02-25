@@ -32,12 +32,11 @@ def pricepredication():
         file = request.files['file']
         try:
             input = pd.read_csv(file)
-            
             print(input.iloc[0, 0])
             suburb = input.iloc[0, 0]
             record = connection.post("SELECT * FROM suburbs WHERE suburb = '{}'".format(suburb))
             if record != None:
-                input.insert(10, 'local_authority', record[1], True)
+                input.insert(10, 'council', record[1], True)
                 input.insert(9, 'constituency', record[2], True)
                 input.insert(1, 'density', record[4], True)     
                 print(record)   
@@ -58,9 +57,9 @@ def pricepredication():
 @app.route("/predication")
 def predication():
     return send_file(
-        "./static/downloads/predication-price-template.csv",
-        mimetype="application/csv",
-        download_name="suburbs.csv",
+        "./static/downloads/predication-price-template.zip",
+        mimetype="application/zip",
+        download_name="predication-price-template.zip",
         as_attachment=True,) 
     
     
@@ -74,10 +73,10 @@ def propprediction():
             record = connection.post("SELECT * FROM suburbs WHERE suburb = '{}'".format(suburb))
             print(record)
             if record != None:
-                local_authority = record[2]
+                council = record[2]
                 constituency = record[1]
                 density = record[4]
-                features = [suburb, density, price, constituency, local_authority]
+                features = [suburb, density, price, constituency, council]
                 print(features)
                 output = predicted.userInputed(features)
                 return render_template('rental/output.html', price = output)
@@ -118,7 +117,7 @@ def properties():
                     for row in csv_reader:
                         # Execute the query using executemany for efficiency
                         data = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21]]
-                        connection.populate("INSERT INTO properties(email, price, suburb, density, type_of_property, rooms, bedroom, toilets, ensuite, toilets_type, garage, swimming_pool, fixtures_fittings, cottage, power, power_backup, water, water_backup, gated_community, garden_area, address, description) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}')".format(data[0], data[1] ,data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], data[13] ,data[14], data[15], data[16], data[17] ,data[18], data[19], data[20], data[21]))
+                        connection.populate("INSERT INTO properties(email, price, suburb, density, property, rooms, bedroom, toilets, ensuite, type, carport, pool, furnished, cottage, power, pbackup, water, wbackup, gated, garden, address, description) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}')".format(data[0], data[1] ,data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], data[13] ,data[14], data[15], data[16], data[17] ,data[18], data[19], data[20], data[21]))
                 
                 append = './machine/harare/updated.csv'
                 with open(append, 'a', newline='') as appended:
@@ -163,7 +162,7 @@ def coordinates():
                         point = f"POINT({data[3]},{data[2]})"
                         print(point)
                         connection.populate("DELETE FROM coordinates")
-                        connection.populate("INSERT INTO coordinates(address, authority, coordinates) VALUES ('{}', '{}', {})".format(data[0], data[1], point))
+                        connection.populate("INSERT INTO coordinates(address, council, coordinates) VALUES ('{}', '{}', {})".format(data[0], data[1], point))
             except Exception as e:
                      print("An error occurred:", e)
         createHarareMap.map()
@@ -189,7 +188,7 @@ def suburbs():
                     for row in csv_reader:
                         # Execute the query using executemany for efficiency
                         data = [row[0], row[1], row[2], row[3]]
-                        connection.populate("INSERT INTO suburbs(constituency, authority, suburb, density) VALUES ('{}', '{}', '{}', '{}')".format(data[0], data[1], data[2], data[3]))
+                        connection.populate("INSERT INTO suburbs(constituency, council, suburb, density) VALUES ('{}', '{}', '{}', '{}')".format(data[0], data[1], data[2], data[3]))
             except Exception as e:
                      print("An error occurred:", e)
         return render_template('rental/suburbs.html')    

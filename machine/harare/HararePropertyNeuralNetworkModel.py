@@ -73,11 +73,11 @@ model.fit(x=X_train, y=y_train.values,
           batch_size=64,epochs=400)
 
 #Pickel Model
-with open("./machine/harare/HarareNeuralNetworkModel.pkl", "wb") as f:
+with open("./machine/harare/HarareRentNeuralNetworkModel.pkl", "wb") as f:
     pickle.dump(model, f)
 
 # save the scaler
-with open("./machine/harare/HarareNeuralNetworkscaler.pkl", "wb") as f:
+with open("./machine/harare/HarareRentNeuralNetworkModelScaler.pkl", "wb") as f:
     pickle.dump(scaler, f)
 
 # predictions on the test set
