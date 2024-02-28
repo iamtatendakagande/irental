@@ -1,29 +1,27 @@
 {% extends 'partials/user.html' %}
-
 {% block body %}
 <div class="col-xs-12 col-sm-12 col-lg-8 col-lg-offset-2">
 
     {% if properties != 0 %} 
-    <div class="output-panel">
         {% for property in properties %} 
-            <div class="card">
-                <h5 class="card-header">Featured</h5>
-                <div class="card-body">
-
-                    <p>This property is in {{property[3]}} and has {{property[5]}} rooms, including {{property[6]}} bedrooms. 
-                        It also boasts {{property[7]}} bathrooms, with {{property[8]}} of them being ensuites. Outside, you'll find 
-                        {% if property[11] !=0 %} <p>{{property[11]}} swimming pools</p>{% endif %}
-                        {% if property[10] !=0 %}<p>{{property[10]}} parking spaces</p>{% endif %}
-                        {% if property[19] !=0 %}<p>a lovely garden</p>{% endif %}
-                        {% if property[12] !=0 %}<p>The kitchen is equipped and ready for use.</p>{% endif %}
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+        
+        <div class="dismissable-panel">
+            <div class="property-details">
+        
+                <div class="property-info">
+                    <h2> {{property[3]}}: ${{property[2]}}</h2>
+                    <p>This {{property[6]}}-roomed {{property[5]}} is located in a {{property[4]}} 
+                        density neighborhood and features {{property[7]}}-bedrooms, {{property[8]}}-toilet(s), 
+                        {{property[9]}}-ensuites(s), {{property[11]}}-secured carport(s), a fully equipped kitchen,
+                         a working swimming pool, {{property[14]}}-roomed cottage, grid powered, backup power supply,
+                         council water supply, backup water source, a neat garden area</p>
                 </div>
+            
+                <span class="dismiss-button">&times;</span>
             </div>
-            <br>
+          </div>
+          
         {% endfor %}
-        </div>
     {% endif %}
 </div>
 {% endblock %}

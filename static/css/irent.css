@@ -8,6 +8,47 @@ body,html {
   -o-background-size: cover;
   background-size: cover;
 }
+
+.property-details {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+}
+.property-info {
+  flex: 1 1 auto;
+}
+.property-info h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.property-info p {
+  margin-bottom: 5px;
+}
+.property-details .fa {
+  margin-right: 5px;
+}
+.dismissable-panel {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 10px;
+}
+.dismissable-panel p {
+  margin: 0;
+}
+.dismiss-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+}
   
 
 /* End : Override Bootstrap navigation */

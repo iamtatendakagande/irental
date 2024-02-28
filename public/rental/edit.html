@@ -1,38 +1,31 @@
 {% extends 'partials/auth.html' %}
 
 {% block body %}
-    <div class="col-xs-12 col-sm-12 col-lg-8 col-lg-offset-2 output-panel">
-        {% for property in properties %}
-        {% if property !=0 %}  
-            <div class="col-lg-5 col-sm-6 ">
-                <h6>${{property[1]}} {{property[1]}}</h6>
-                <h6>email : {{property[1]}}</h6>
-                <h6>address : {{property[3]}}</h6> 	    
-                <h6>suburb : {{property[3]}}</h6>          
-                <h6>type_of_property : {{property[3]}}</h6>
-                <h6>rooms : {{property[3]}}</h6>
-                <h6>bedroom : {{property[3]}}</h6>
-                <h6>toilets : {{property[3]}}</h6> 
-                <h6>ensuite : {{property[3]}}</h6>
-                <h6>toilets_type : {{property[3]}}</h6>
+<div class="col-xs-12 col-sm-12 col-lg-8 col-lg-offset-2">
+
+    {% if properties != 0 %} 
+        {% for property in properties %} 
+        
+        <div class="dismissable-panel">
+            <div class="property-details">
+        
+                <div class="property-info">
+                    <h2> {{property[3]}}: ${{property[2]}}</h2>
+                    <p>This {{property[6]}}-roomed {{property[5]}} is located in a {{property[4]}} 
+                        density neighborhood and features {{property[7]}}-bedrooms, {{property[8]}}-toilet(s), 
+                        {{property[9]}}-ensuites(s), {{property[11]}}-secured carport(s), a fully equipped kitchen,
+                         a working swimming pool, {{property[14]}}-roomed cottage grid powered, backup power supply,
+                         council water supply, backup water source, a neat garden area</p>
+
+                <a type="submit" id="submit" class="btn btn-wide btn-danger" href="#">DELETE</a>
+                </div>
+            
+                <span class="dismiss-button">&times;</span>
             </div>
-    
-            <div class="col-lg-5 col-sm-6">
-                <h6>garage : {{property[1]}}</h6> 
-                <h6>swimming_pool : {{property[1]}}</h6> 
-                <h6>fixtures_fittings : {{property[1]}}</h6> 
-                <h6>cottage : {{property[1]}}</h6> 
-                <h6>power : {{property[1]}}</h6>
-                <h6>power_backup : {{property[1]}}</h6>
-                <h6>water : {{property[1]}}</h6>   
-                <h6>power_backup : {{property[1]}}</h6>
-                <h6>water_backup : {{property[1]}}</h6>  
-                <h6>power_backup : {{property[1]}}</h6>  
-                <h6>gated_community : {{property[1]}}</h6>  
-                <h6>garden_area : {{property[1]}}</h6> 
-                <h6>description : {{property[1]}}</h6> 
-            </div>]
-            {% endif %}
+        </div>
+          
         {% endfor %}
-    </div>
+    {% endif %}
+</div>
 {% endblock %}
+
