@@ -22,6 +22,10 @@ class predict:
     
     def preprocess_text(input):
         data = pd.read_csv('./machine/dataset/updated.csv', keep_default_na=False)
+
+        data = data.astype({'rooms': 'int','bedroom': 'int', 'toilets':'int', 'ensuite':'int', 'carport':'int', 'cottage':'int'})
+        input = input.astype({'rooms': 'int','bedroom': 'int', 'toilets':'int', 'ensuite':'int', 'carport':'int', 'cottage':'int'})
+
         data = pd.concat([data, input], ignore_index=True)  # Combine and reset index
         
         print(data.info())
@@ -30,6 +34,8 @@ class predict:
 
         categorical_features = data.select_dtypes('object').columns
         print(categorical_features)
+
+        data = data.astype(str)
 
         # Encoding ...
         from sklearn import preprocessing
