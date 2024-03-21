@@ -1,5 +1,4 @@
 {% extends 'partials/auth.html' %}
-
 {% block body %}
 <div class="col-xs-12 col-sm-12 col-lg-8 col-lg-offset-2">
 
@@ -10,22 +9,35 @@
             <div class="property-details">
         
                 <div class="property-info">
-                    <h2> {{property[3]}}: ${{property[2]}}</h2>
-                    <p>This {{property[6]}}-roomed {{property[5]}} is located in a {{property[4]}} 
-                        density neighborhood and features {{property[7]}}-bedrooms, {{property[8]}}-toilet(s), 
-                        {{property[9]}}-ensuites(s), {{property[11]}}-secured carport(s), a fully equipped kitchen,
-                         a working swimming pool, {{property[14]}}-roomed cottage grid powered, backup power supply,
-                         council water supply, backup water source, a neat garden area</p>
-
-                <a type="submit" id="submit" class="btn btn-wide btn-danger" href="#">DELETE</a>
+                    <h2> {{property[3]|upper}}: ${{property[2]}}</h2>
+                    <p>This {{property[6]|lower}}-roomed {{property[5]|lower}} is located in a
+                        {% if property[19] !=0 %} <span>gated </span>{% endif %}
+                        {{property[4]|lower}} density neighborhood and features
+                        {% if property[7] !=0 %} <span>{{property[7]|lower}}-bedrooms: </span>{% endif %}
+                        {{property[8]|lower}}-toilet(s):
+                        {% if property[9] !=0 %} <span>{{property[9]|lower}}-ensuites(s): </span>{% endif %}
+                        {% if property[11] !=0 %} <span>{{property[11]|lower}}-secured carport(s): </span>{% endif %}    
+                        {% if property[12] !=0 %} <span>a working swimming pool: </span>{% endif %}
+                        {% if property[13] !=0 %} <span>a fully equipped kitchen: </span>{% endif %}
+                        {% if property[14] !=0 %} <span>{{property[14]|lower}}-roomed cottage: </span>{% endif %}
+                        {% if property[14] !=0 %} <span>grid powered: </span>{% endif %}
+                        {% if property[15] !=0 %} <span>backup power supply: </span>{% endif %}
+                        {% if property[16] !=0 %} <span>council water supply: </span>{% endif %}
+                        {% if property[17] !=0 %} <span>backup water source: </span>{% endif %}
+                        {% if property[20] !=0 %} <span>a neat garden area: </span>{% endif %}
+                    </p>
                 </div>
             
                 <span class="dismiss-button">&times;</span>
             </div>
-        </div>
+            <form class="main-form" id="main-form" method="POST" action="/delete" role="form">
+                <button class="delete-button" type="submit" id="submit">
+                    <i class="fa fa-trash-o"></i> 
+                </button>
+            </form>
+          </div>
           
-        {% endfor %}
+        {% endfor %}    
     {% endif %}
 </div>
 {% endblock %}
-

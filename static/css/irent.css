@@ -44,12 +44,21 @@ body,html {
 .dismiss-button {
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 6px;
   cursor: pointer;
   font-size: 12px;
   font-weight: bold;
 }
-  
+
+.delete-button {
+  position: absolute;
+  bottom: 5px;
+  right: 1px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+}
 
 /* End : Override Bootstrap navigation */
 .navbar {

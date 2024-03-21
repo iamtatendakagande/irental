@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, session, send_file
+from flask import Flask, render_template, redirect, url_for, request, session, send_file, flash
 import re, hashlib
 from source.databaseConnection import database
 import os
@@ -10,7 +10,8 @@ from source.mapCreation import createHarareMap
 
 app = Flask(__name__, template_folder='./public')
 # enable debugging mode
-app.config["DEBUG"] = True
+#app.config["DEBUG"] = True
+app.config['TESTING'] = True
 # Upload folder
 app.config['UPLOAD_FOLDER'] =  'static/uploads'
 
@@ -42,13 +43,14 @@ def pricepredication():
                 print(record)   
                 print(input.tail())
                 output = predict.userInput(input)
+                # Process form data
+                #flash('Your form has been submitted!', 'success')  # Flash a success message
                 return render_template('rental/output.html', price = output)
             else:
                 return render_template('rental/price.html') 
         except Exception as e:
             print("An error occurred:", e)
-            msg = "suburb not found please download the suburbs file check spelling or upload file using the attached template"
-            print(msg)
+            flash("An error occurred:", 'error')
             return render_template('rental/price.html')
     else:
         return render_template('rental/price.html')
@@ -61,8 +63,7 @@ def predication():
         mimetype="application/zip",
         download_name="predication-price-template.zip",
         as_attachment=True,) 
-    
-    
+       
 @app.route('/propprediction', methods=['GET', 'POST'])
 def propprediction():
     if (request.method == "POST"): 
@@ -81,11 +82,11 @@ def propprediction():
                 output = predicted.userInputed(features)
                 return render_template('rental/output.html', price = output)
             else:
+               flash("suburb not found please download the suburbs file check spelling or upload file using the attached templated", 'error')
                return render_template('rental/property.html') 
         except Exception as e:
             print("An error occurred:", e)
-            msg = "suburb not found please download the suburbs file check spelling or upload file using the attached template"
-            print(msg)
+            flash("An error occurred:", 'error')
             return render_template('rental/property.html')
     else:
         return render_template('rental/property.html')
@@ -124,10 +125,9 @@ def properties():
                     csv_writer = csv.writer(appended)
                     line = [row[2], row[3], row[4], row[7], row[1], row[5], row[6], 'NULL', row[8], 'NULL', row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20]]
                     csv_writer.writerow(line)
-                        
             except Exception as e:
                      print("An error occurred:", e)
-                        
+                     flash("An error occurred:", 'error')
         return render_template('rental/properties.html')    
     else:
         return render_template('rental/properties.html')
@@ -165,8 +165,9 @@ def coordinates():
                         connection.populate("INSERT INTO coordinates(address, council, coordinates) VALUES ('{}', '{}', {})".format(data[0], data[1], point))
             except Exception as e:
                      print("An error occurred:", e)
+                     flash('Your form has been submitted!', 'error')
         createHarareMap.map()
-        return render_template('rental/coordinates.html')    
+        return render_template('rental/map.html')    
     else:
         return render_template('rental/coordinates.html')
     
@@ -191,6 +192,7 @@ def suburbs():
                         connection.populate("INSERT INTO suburbs(constituency, council, suburb, density) VALUES ('{}', '{}', '{}', '{}')".format(data[0], data[1], data[2], data[3]))
             except Exception as e:
                      print("An error occurred:", e)
+        flash('Your form has been submitted!', 'success')
         return render_template('rental/suburbs.html')    
     else:
         return render_template('rental/suburbs.html')
@@ -235,6 +237,7 @@ def signin():
             # Redirect to home page
             return render_template('rental/edit.html', properties = properties)
         else:
+            flash('wrong credentials!', 'error')  # Flash a success message
             return render_template('auth/signin.html')
     else:
         return render_template('auth/signin.html')
@@ -278,6 +281,7 @@ def register():
             # user doesn't exist, and the form data is valid, so insert the new user into the users table
             connection.populate("INSERT INTO users(name, email, password) VALUES ('{}','{}','{}')".format(name, email, password))
             msg = 'You have successfully registered!'
+        flash(msg, 'error')  # Flash a success message
         return render_template('auth/signin.html')
     else:
         return render_template('auth/register.html')
@@ -289,6 +293,14 @@ def edit():
     if (request.method == "POST"):
         return render_template('rental/edit.html', properties = properties)
     return render_template('rental/edit.html', properties = properties)
+
+@app.route('/delete', methods=['GET', 'POST'])
+def delete():
+    email = session["email"]
+    properties =  connection.posts("DELETE FROM properties WHERE email = '{}'".format(email))
+    if (request.method == "POST"):
+        return render_template('rental/edit.html', properties = properties)
+    return render_template('rental/edit.html', properties = properties)
     
 @app.route('/search')
 def search(): 
@@ -296,4 +308,4 @@ def search():
     return render_template('rental/edit.html', properties = properties)
                 
 if __name__ == '__main__':
-    app.run(debug=True ,use_reloader=True)
+    app.run(debug=True)

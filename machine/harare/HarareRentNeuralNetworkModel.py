@@ -65,13 +65,18 @@ model.add(Dense(19,activation='relu'))
 
 # output layer
 model.add(Dense(1))
-model.compile(optimizer='adam',loss='mse')
+
+
+from tensorflow.keras.callbacks import EarlyStopping
+early_stopping = EarlyStopping(monitor='val_loss', patience=20)
+
+
+model.compile(optimizer='adam',loss='mse', metrics=['mae'])
 
 #model training
 model.fit(x=X_train, y=y_train.values,
           validation_data=(X_test,y_test.values),
-          batch_size=64,epochs=400)
-
+          batch_size=32,epochs=400)
 #Pickel Model
 with open("./machine/harare/HarareRentNeuralNetworkModel.pkl", "wb") as f:
     pickle.dump(model, f)
