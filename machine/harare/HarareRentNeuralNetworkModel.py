@@ -10,13 +10,10 @@ from sklearn.preprocessing import MinMaxScaler
 
 # creating a model
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Activation
-from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.layers import Dense
 
 # evaluation on test data
 from sklearn.metrics import mean_squared_error,mean_absolute_error,explained_variance_score
-from sklearn.metrics import classification_report,confusion_matrix
-
 
 # Read the dataset
 data = pd.read_csv('./machine/dataset/updated.csv')
@@ -34,7 +31,7 @@ X = data.drop('price',axis=1)
 y = data['price']
 
 # Split
-X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.33,random_state=101)
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3,random_state=101)
 
 print(X_train.shape)
 print(X_test.shape)
@@ -51,27 +48,22 @@ X_test = scaler.transform(X_test)
 print('Max: ',X_train.max())
 print('Min: ', X_train.min())    
 
-
-#model creation
 model = Sequential()
-
 # input layer
-model.add(Dense(19,activation='relu'))
-
+model.add(Dense(20,activation='relu'))
 # hidden layers
-model.add(Dense(19,activation='relu'))
-model.add(Dense(19,activation='relu'))
-model.add(Dense(19,activation='relu'))
+model.add(Dense(20,activation='relu'))
+model.add(Dense(15,activation='relu'))
+model.add(Dense(10,activation='relu'))
+model.add(Dense(5,activation='relu'))
 
 # output layer
 model.add(Dense(1))
 
-
 from tensorflow.keras.callbacks import EarlyStopping
 early_stopping = EarlyStopping(monitor='val_loss', patience=20)
 
-
-model.compile(optimizer='adam',loss='mse', metrics=['mae'])
+model.compile(optimizer='adam',loss='mean_squared_error', metrics=['mae'])
 
 #model training
 model.fit(x=X_train, y=y_train.values,
@@ -92,3 +84,6 @@ print('MAE: ',mean_absolute_error(y_test,predictions))
 print('MSE: ',mean_squared_error(y_test,predictions))
 print('RMSE: ',np.sqrt(mean_squared_error(y_test,predictions)))
 print('Variance Regression Score: ',explained_variance_score(y_test,predictions))
+loss, accuracy = model.evaluate(X_test, y_test)
+print("Test Accuracy:", accuracy)
+print("Test loss:", loss)
