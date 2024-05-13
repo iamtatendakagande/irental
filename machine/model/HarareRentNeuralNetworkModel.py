@@ -16,7 +16,7 @@ from tensorflow.keras.layers import Dense
 from sklearn.metrics import mean_squared_error,mean_absolute_error,explained_variance_score
 
 # Read the dataset
-data = pd.read_csv('./machine/dataset/updated.csv')
+data = pd.read_csv('./machine/dataset/harare-metropolian.csv')
 print(data.head())
 
 from sklearn.preprocessing import LabelEncoder
@@ -84,6 +84,3 @@ print('MAE: ',mean_absolute_error(y_test,predictions))
 print('MSE: ',mean_squared_error(y_test,predictions))
 print('RMSE: ',np.sqrt(mean_squared_error(y_test,predictions)))
 print('Variance Regression Score: ',explained_variance_score(y_test,predictions))
-loss, accuracy = model.evaluate(X_test, y_test)
-print("Test Accuracy:", accuracy)
-print("Test loss:", loss)
