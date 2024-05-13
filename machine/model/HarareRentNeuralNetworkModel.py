@@ -16,7 +16,7 @@ from tensorflow.keras.layers import Dense
 from sklearn.metrics import mean_squared_error,mean_absolute_error,explained_variance_score
 
 # Read the dataset
-data = pd.read_csv('./machine/dataset/harare-metropolian.csv')
+data = pd.read_csv('./machine/data/harare-metropolian-updated.csv')
 print(data.head())
 
 from sklearn.preprocessing import LabelEncoder
@@ -60,21 +60,18 @@ model.add(Dense(5,activation='relu'))
 # output layer
 model.add(Dense(1))
 
-from tensorflow.keras.callbacks import EarlyStopping
-early_stopping = EarlyStopping(monitor='val_loss', patience=20)
-
 model.compile(optimizer='adam',loss='mean_squared_error', metrics=['mae'])
 
 #model training
 model.fit(x=X_train, y=y_train.values,
           validation_data=(X_test,y_test.values),
-          batch_size=32,epochs=400)
+          batch_size=64,epochs=400)
 #Pickel Model
-with open("./machine/harare/HarareRentNeuralNetworkModel.pkl", "wb") as f:
+with open("./machine/data/HarareRentNeuralNetworkModel.pkl", "wb") as f:
     pickle.dump(model, f)
 
 # save the scaler
-with open("./machine/harare/HarareRentNeuralNetworkModelScaler.pkl", "wb") as f:
+with open("./machine/data/HarareRentNeuralNetworkModelScaler.pkl", "wb") as f:
     pickle.dump(scaler, f)
 
 # predictions on the test set

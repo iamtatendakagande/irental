@@ -1,2 +1,2 @@
-suburb,density,property,price,rooms,bedroom,toilets,ensuite,condition,constituency,council,carport,pool,furnished,cottage,power,pbackup,water,wbackup,gated,garden
-EYECOURT,COMPOUND,CLUSTER,30,1,0,1,0,2,HARARE SOUTH,HARARE MUNICIPALITY,0,0,0,0,0,0,0,1,0,0
+suburb,property,price,rooms,bedroom,toilets,ensuite,condition,carport,pool,furnished,cottage,power,pbackup,water,wbackup,gated,garden
+ZENGEZA 4,CLUSTER,100,2,0,1,0,3,0,0,0,0,1,0,0,1,0,0

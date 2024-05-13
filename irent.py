@@ -5,7 +5,6 @@ import os
 import pandas as pd 
 import csv
 from source.userInputRent import predict
-from source.userInputProperty import predicted
 from source.mapCreation import createHarareMap
 
 app = Flask(__name__, template_folder='./public')
@@ -27,7 +26,7 @@ def index():
     properties =  connection.posts("SELECT * FROM properties")
     return render_template('/index.html', properties = properties)
 
-@app.route('/pricepredication', methods=['GET', 'POST'])
+@app.route('/price', methods=['GET', 'POST'])
 def pricepredication():
     if (request.method == "POST"):
         file = request.files['file']
@@ -36,6 +35,7 @@ def pricepredication():
             print(input.iloc[0, 0])
             suburb = input.iloc[0, 0]
             record = connection.post("SELECT * FROM suburbs WHERE suburb = '{}'".format(suburb))
+            print(record)
             if record != None:
                 input.insert(10, 'council', record[1], True)
                 input.insert(9, 'constituency', record[2], True)
@@ -47,6 +47,7 @@ def pricepredication():
                 #flash('Your form has been submitted!', 'success')  # Flash a success message
                 return render_template('rental/output.html', price = output)
             else:
+                flash("SUBURB NOT FOUND")
                 return render_template('rental/price.html') 
         except Exception as e:
             print("An error occurred:", e)
@@ -55,7 +56,6 @@ def pricepredication():
     else:
         return render_template('rental/price.html')
     
-
 @app.route("/predication")
 def predication():
     return send_file(
@@ -63,35 +63,7 @@ def predication():
         mimetype="application/zip",
         download_name="predication-price-template.zip",
         as_attachment=True,) 
-       
-@app.route('/propprediction', methods=['GET', 'POST'])
-def propprediction():
-    if (request.method == "POST"): 
-        try:
-            suburb = request.form.get('suburb')
-            price = request.form.get('price')
-
-            record = connection.post("SELECT * FROM suburbs WHERE suburb = '{}'".format(suburb))
-            print(record)
-            if record != None:
-                council = record[2]
-                constituency = record[1]
-                density = record[4]
-                features = [suburb, density, price, constituency, council]
-                print(features)
-                output = predicted.userInputed(features)
-                return render_template('rental/output.html', price = output)
-            else:
-               flash("suburb not found please download the suburbs file check spelling or upload file using the attached templated", 'error')
-               return render_template('rental/property.html') 
-        except Exception as e:
-            print("An error occurred:", e)
-            flash("An error occurred:", 'error')
-            return render_template('rental/property.html')
-    else:
-        return render_template('rental/property.html')
-
-    
+           
 @app.route("/property")
 def property():
     return send_file(
@@ -189,7 +161,7 @@ def suburbs():
                     for row in csv_reader:
                         # Execute the query using executemany for efficiency
                         data = [row[0], row[1], row[2], row[3]]
-                        connection.populate("INSERT INTO suburbs(constituency, council, suburb, density) VALUES ('{}', '{}', '{}', '{}')".format(data[0], data[1], data[2], data[3]))
+                        connection.populate("INSERT INTO suburbs(constituency, council, suburb, density) VALUES ('{}', '{}', '{}', '{}')".format(data[3], data[2], data[0], data[1]))
             except Exception as e:
                      print("An error occurred:", e)
         flash('Your form has been submitted!', 'success')
