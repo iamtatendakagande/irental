@@ -4,8 +4,9 @@ from source.databaseConnection import database
 import os
 import pandas as pd 
 import csv
-from source.userInputRent import predict
-from source.mapCreation import createHarareMap
+from source.userInputNeuralNetwork import predict
+#from source.userInputGradientBoosting import predict
+#from source.mapCreation import createHarareMap
 
 app = Flask(__name__, template_folder='./public')
 # enable debugging mode

@@ -1,6 +1,7 @@
 # Import the necessary libraries.
 import pickle
 import pandas as pd
+import numpy as np 
 
 # Create a machine learning model.
 class predict:  
@@ -12,10 +13,16 @@ class predict:
         try:
             preprocessed_input = predict.preprocess_text(input)
             # load the model from disk
-            model = pickle.load(open("./machine/data/HarareRentNeuralNetworkModel.pkl", 'rb'))
+            #model = pickle.load(open("./machine/pickled/HarareRentNeuralNetworkModel.pkl", 'rb'))
+            model = pickle.load(open("./machine/pickled/HarareRentPredictionModel.pkl", 'rb'))
             print("Processed text:",preprocessed_input)
+
+             # Model Prediction
+            output = model.predict(preprocessed_input)[0]
+
+            print('model_name',model.__class__.__name__)
+            print('prediction is', output)
             
-            output = model.predict(preprocessed_input)[0,0]
             return output     
         except Exception as e:
                 print("An error occurred:", e)
@@ -29,8 +36,6 @@ class predict:
         data = pd.concat([data, input], ignore_index=True)  # Combine and reset index
         
         print(data.info())
-        #print(data.tail())
-        #print(data.sample(20))
         print(data.tail(1).T)
 
         categorical_features = data.select_dtypes('object').columns
@@ -52,7 +57,7 @@ class predict:
         print(f'Features of new house:\n{single_house}')
 
         # load the scaler from disk
-        scaler  = pickle.load(open("./machine/data/HarareRentNeuralNetworkModelScaler.pkl", 'rb'))
+        scaler  = pickle.load(open("./machine/pickled/HarareRentPredictionModelScaler.pkl", 'rb'))
         # reshape the numpy array and scale the features
         single_house = scaler.transform(single_house.values.reshape(-1, 20))
         print("User input size: ", single_house.shape)

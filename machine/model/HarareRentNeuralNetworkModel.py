@@ -56,22 +56,27 @@ model.add(Dense(20,activation='relu'))
 model.add(Dense(15,activation='relu'))
 model.add(Dense(10,activation='relu'))
 model.add(Dense(5,activation='relu'))
-
 # output layer
 model.add(Dense(1))
 
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
+early_stopping = EarlyStopping(monitor='val_loss', patience=20, restore_best_weights=True)
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=10, min_lr=1e-6)
+
 model.compile(optimizer='adam',loss='mean_squared_error', metrics=['mae'])
 
-#model training
+
 model.fit(x=X_train, y=y_train.values,
           validation_data=(X_test,y_test.values),
-          batch_size=64,epochs=400)
+          callbacks=[early_stopping, reduce_lr],
+          batch_size=32,epochs=400)
+
 #Pickel Model
-with open("./machine/data/HarareRentNeuralNetworkModel.pkl", "wb") as f:
+with open("./machine/pickled/HarareRentNeuralNetworkModel.pkl", "wb") as f:
     pickle.dump(model, f)
 
 # save the scaler
-with open("./machine/data/HarareRentNeuralNetworkModelScaler.pkl", "wb") as f:
+with open("./machine/pickled/HarareRentNeuralNetworkModelScaler.pkl", "wb") as f:
     pickle.dump(scaler, f)
 
 # predictions on the test set
