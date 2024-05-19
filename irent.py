@@ -154,8 +154,12 @@ def suburbs():
                         # Execute the query using executemany for efficiency
                         data = [row[0], row[1], row[2], row[3]]
                         connection.populate("INSERT INTO suburbs(constituency, council, suburb, density) VALUES ('{}', '{}', '{}', '{}')".format(data[3], data[2], data[0], data[1]))
+                        flash("The file was successfully uploaded")
+                        return render_template('rental/suburbs.html')    
             except Exception as e:
-                    flash("An error occurred:", e)
+                flash("An error occurred:", e)
+                return render_template('rental/suburbs.html')
+        flash("They is nothing to upload")
         return render_template('rental/suburbs.html')    
     else:
         return render_template('rental/suburbs.html')
