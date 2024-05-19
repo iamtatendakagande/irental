@@ -4,9 +4,9 @@ from source.databaseConnection import database
 import os
 import pandas as pd 
 import csv
+from source.mapCreation import createHarareMap
 from source.userInputNeuralNetwork import predict
 #from source.userInputGradientBoosting import predict
-#from source.mapCreation import createHarareMap
 
 app = Flask(__name__, template_folder='./public')
 # enable debugging mode
@@ -27,6 +27,14 @@ def index():
     properties =  connection.posts("SELECT * FROM properties")
     return render_template('/index.html', properties = properties)
 
+@app.route("/predication")
+def predication():
+    return send_file(
+        "./static/downloads/predication-price-template.zip",
+        mimetype="application/zip",
+        download_name="predication-price-template.zip",
+        as_attachment=True,) 
+
 @app.route('/price', methods=['GET', 'POST'])
 def pricepredication():
     if (request.method == "POST"):
@@ -44,27 +52,16 @@ def pricepredication():
                 print(record)   
                 print(input.tail())
                 output = predict.userInput(input)
-                # Process form data
-                #flash('Your form has been submitted!', 'success')  # Flash a success message
                 return render_template('rental/output.html', price = output)
             else:
-                flash("SUBURB NOT FOUND")
+                flash("Suburb not found")
                 return render_template('rental/price.html') 
         except Exception as e:
-            print("An error occurred:", e)
-            flash("An error occurred:", 'error')
+            flash("An error occurred:", e)
             return render_template('rental/price.html')
     else:
         return render_template('rental/price.html')
-    
-@app.route("/predication")
-def predication():
-    return send_file(
-        "./static/downloads/predication-price-template.zip",
-        mimetype="application/zip",
-        download_name="predication-price-template.zip",
-        as_attachment=True,) 
-           
+               
 @app.route("/property")
 def property():
     return send_file(
@@ -90,17 +87,12 @@ def properties():
                     # Iterate through each row in the CSV file
                     for row in csv_reader:
                         # Execute the query using executemany for efficiency
-                        data = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20], row[21]]
-                        connection.populate("INSERT INTO properties(email, price, suburb, density, property, rooms, bedroom, toilets, ensuite, type, carport, pool, furnished, cottage, power, pbackup, water, wbackup, gated, garden, address, description) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}')".format(data[0], data[1] ,data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], data[13] ,data[14], data[15], data[16], data[17] ,data[18], data[19], data[20], data[21]))
-                
-                append = './machine/harare/updated.csv'
-                with open(append, 'a', newline='') as appended:
-                    csv_writer = csv.writer(appended)
-                    line = [row[2], row[3], row[4], row[7], row[1], row[5], row[6], 'NULL', row[8], 'NULL', row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20]]
-                    csv_writer.writerow(line)
+                        data = [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14], row[15], row[16], row[17], row[18], row[19], row[20]]
+                        connection.populate("INSERT INTO properties(email, price, suburb, property, rooms, bedroom, toilets, ensuite, condi, carport, pool, furnished, cottage, power, pbackup, water, wbackup, gated, garden, address, description) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}')".format(data[0], data[1] ,data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], data[13] ,data[14], data[15], data[16], data[17] ,data[18], data[19], data[20]))
+                        return redirect("/")   
             except Exception as e:
-                     print("An error occurred:", e)
-                     flash("An error occurred:", 'error')
+                     flash("An error occurred:", e)
+                     return render_template('rental/properties.html')    
         return render_template('rental/properties.html')    
     else:
         return render_template('rental/properties.html')
@@ -138,7 +130,6 @@ def coordinates():
                         connection.populate("INSERT INTO coordinates(address, council, coordinates) VALUES ('{}', '{}', {})".format(data[0], data[1], point))
             except Exception as e:
                      print("An error occurred:", e)
-                     flash('Your form has been submitted!', 'error')
         createHarareMap.map()
         return render_template('rental/map.html')    
     else:
@@ -164,8 +155,7 @@ def suburbs():
                         data = [row[0], row[1], row[2], row[3]]
                         connection.populate("INSERT INTO suburbs(constituency, council, suburb, density) VALUES ('{}', '{}', '{}', '{}')".format(data[3], data[2], data[0], data[1]))
             except Exception as e:
-                     print("An error occurred:", e)
-        flash('Your form has been submitted!', 'success')
+                    flash("An error occurred:", e)
         return render_template('rental/suburbs.html')    
     else:
         return render_template('rental/suburbs.html')
@@ -240,12 +230,20 @@ def register():
         # If user exists show error and validation checks
         if user:
             msg = 'user already exists!'
+            flash(msg, 'error')
+            return render_template('auth/register.html')
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             msg = 'Invalid email address!'
+            flash(msg, 'error')
+            return render_template('auth/register.html')
         elif not re.match(r'[A-Za-z0-9]+', email):
             msg = 'email must contain only characters and numbers!'
-        elif not email or not password or not email:
+            flash(msg, 'error')
+            return render_template('auth/register.html')
+        elif not email or not password:
             msg = 'Please fill out the form!'
+            flash(msg, 'error')
+            return render_template('auth/register.html')
         else:
             # Hash the password
             hash = password + app.secret_key
@@ -254,8 +252,8 @@ def register():
             # user doesn't exist, and the form data is valid, so insert the new user into the users table
             connection.populate("INSERT INTO users(name, email, password) VALUES ('{}','{}','{}')".format(name, email, password))
             msg = 'You have successfully registered!'
-        flash(msg, 'error')  # Flash a success message
-        return render_template('auth/signin.html')
+            flash(msg, 'success')
+            return render_template('auth/signin.html')
     else:
         return render_template('auth/register.html')
     
@@ -270,10 +268,9 @@ def edit():
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():
     email = session["email"]
-    properties =  connection.posts("DELETE FROM properties WHERE email = '{}'".format(email))
+    connection.posts("DELETE FROM properties WHERE email = '{}'".format(email))
     if (request.method == "POST"):
-        return render_template('rental/edit.html', properties = properties)
-    return render_template('rental/edit.html', properties = properties)
+        return redirect("/edit")
     
 @app.route('/search')
 def search(): 

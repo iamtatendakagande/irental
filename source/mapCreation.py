@@ -29,4 +29,4 @@ class createHarareMap:
         except Exception as e:
                 print("An error occurred:", e)
 
-createHarareMap.map()
+#createHarareMap.map()
