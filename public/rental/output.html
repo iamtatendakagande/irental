@@ -1,0 +1,9 @@
+{% extends 'partials/user.html' %}
+
+{% block body %}
+<div class="col-xs-12 col-sm-12 col-lg-4 col-lg-offset-4">
+    <div class="output-panel">
+        <h5>The predicted is: ${{ price|round(2) }}</h5>
+    </div>
+</div>
+{% endblock %}
