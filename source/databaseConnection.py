@@ -20,14 +20,14 @@ class Database:
         except Exception as error:
             print("Failed to connect to PostgreSQL database:", error)
 
-    def populate(self, query):
+    def populate(self, query, params=None):
         """For queries that modify data (INSERT, UPDATE, DELETE)"""
         if not self.connection:
             print("Not connected to the database.")
             return
         try:
             cursor = self.connection.cursor()
-            cursor.execute(query)
+            cursor.execute(query, params)
             self.connection.commit() 
             cursor.close()
             print("Query executed and changes committed.")
@@ -36,7 +36,23 @@ class Database:
             self.connection.rollback() # Roll back changes on error
             return None
         
-    def posts(self, query):
+    def populates(self, query, data_list):
+        """For queries that modify data (INSERT, UPDATE, DELETE)"""
+        if not self.connection:
+            print("Not connected to the database.")
+            return
+        try:
+            cursor = self.connection.cursor()
+            cursor.executemany(query, data_list)
+            self.connection.commit() 
+            cursor.close()
+            print("Query executed and changes committed.")
+        except Exception as error:
+            print("Failed to execute query:", error)
+            self.connection.rollback() # Roll back changes on error
+            return None
+        
+    def posts(self, query, params=None):
         """For queries that fetch multiple rows (SELECT all)"""
         if not self.connection:
             print("Not connected to the database.")
@@ -44,8 +60,9 @@ class Database:
             
         try:
             cursor = self.connection.cursor()
-            cursor.execute(query)
+            cursor.execute(query, params)
             results = cursor.fetchall()
+            self.connection.commit()
             cursor.close()
             return results
         except Exception as error:
@@ -67,8 +84,7 @@ class Database:
         except Exception as error:
             print("Failed to execute query:", error)
             return None
-        
-        
+    
     def close_connection(self):
         if self.connection:
             self.connection.close()

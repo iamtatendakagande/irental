@@ -1,6 +1,4 @@
 from flask import Flask, render_template, redirect, request, session, send_file, flash
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate  # This is the import you need
 import re, hashlib
 from source.databaseConnection import Database
 import os
@@ -9,105 +7,15 @@ import csv
 from source.userInputNeuralNetwork import predict
 #from source.userInputGradientBoosting import predict
 
-DATABASE_URL = os.environ.get(
-    'DATABASE_URL',
-    'postgresql://tkagande:@127.0.0.1/irental'
-)
+from app import create_app
+
+# Create the app instance by calling the factory function
+app = create_app()
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 app = Flask(__name__, template_folder='./public')
-
-
-# Configure the SQLAlchemy part of the app
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# --- Database and Migration Setup ---flask checkdb
-
-# 1. Initialize the SQLAlchemy db object
-db = SQLAlchemy(app)
-
-# 2. Initialize the Flask-Migrate object
-#    This connects the Flask app and the SQLAlchemy database
-#    to the migration capabilities.
-migrate = Migrate(app, db)
-
-@app.cli.command("checkdb")
-def check_db_connection():
-    """Checks if the database connection is valid."""
-    try:
-        # db.engine is the low-level SQLAlchemy engine
-        with db.engine.connect() as connection:
-            # Try to execute a simple query
-            connection.execute(db.text("SELECT 1"))
-        print("Database connection successful!")
-    except Exception as e:
-        print(f"Database connection failed:")
-        print(f"\n{e}")
-
-class User(db.Model):
-    __tablename__ = 'users'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(35), nullable=False)
-    email = db.Column(db.String(35), nullable=False, unique=True)
-    password = db.Column(db.String(45), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, server_default=db.func.now())
-    
-    def __repr__(self):
-        return f'<User {self.email}>'
-
-class Suburb(db.Model):
-    __tablename__ = 'suburbs'
-
-    id = db.Column(db.Integer, primary_key=True)
-    constituency = db.Column(db.String(35), nullable=False)
-    council = db.Column(db.String(35), nullable=False)
-    suburb = db.Column(db.String(45), nullable=False, unique=True)
-    density = db.Column(db.String(45), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, server_default=db.func.now())
-
-    def __repr__(self):
-        return f'<Suburb {self.suburb}>'
-
-class Property(db.Model):
-    __tablename__ = 'properties'
-
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(35), nullable=False)
-    price = db.Column(db.Numeric(16, 2), nullable=False) # Numeric is correct for money
-    suburb = db.Column(db.String(35), nullable=False)
-    property = db.Column(db.String(35), nullable=False)
-    rooms = db.Column(db.Integer, nullable=False)
-    bedroom = db.Column(db.Integer, nullable=False)
-    toilets = db.Column(db.Integer, nullable=False)
-    ensuite = db.Column(db.Integer, nullable=False)
-    condi = db.Column(db.Integer, nullable=False)
-    carport = db.Column(db.Integer, nullable=False)
-    pool = db.Column(db.Boolean, nullable=False)
-    furnished = db.Column(db.Boolean, nullable=False)
-    cottage = db.Column(db.Integer, nullable=False)
-    power = db.Column(db.Boolean, nullable=False)
-    pbackup = db.Column(db.Boolean, nullable=False)
-    water = db.Column(db.Boolean, nullable=False)
-    wbackup = db.Column(db.Boolean, nullable=False)
-    gated = db.Column(db.Boolean, nullable=False)
-    garden = db.Column(db.Boolean, nullable=False)
-    address = db.Column(db.String(60), nullable=False)
-    description = db.Column(db.String(130), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, server_default=db.func.now())
-
-    # --- Note on Foreign Keys ---
-    # Your schema uses plain strings for 'email' and 'suburb'.
-    # For a more robust (relational) database, you would replace these
-    # with Foreign Keys pointing to the User and Suburb tables, e.g.:
-    #
-    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    # suburb_id = db.Column(db.Integer, db.ForeignKey('suburbs.id'), nullable=False)
-    #
-    # But I have translated your schema exactly as you provided it.
-
-    def __repr__(self):
-        return f'<Property {self.address}>'
 
 # enable debugging mode
 #app.config["DEBUG"] = True
@@ -204,6 +112,7 @@ def suburbs():
         if file.filename != '':
             try:
                 path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+                data_to_insert = []
                 # set the file path
                 file.save(path)
                 # Open the CSV file in read mode
@@ -215,9 +124,15 @@ def suburbs():
                     for row in csv_reader:
                         # Execute the query using executemany for efficiency
                         data = [row[0], row[1], row[2], row[3]]
-                        connection.populate("INSERT INTO suburbs(constituency, council, suburb, density) VALUES ('{}', '{}', '{}', '{}')".format(data[3], data[2], data[0], data[1]))
-                        flash("The file was successfully uploaded")
-                        return render_template('rental/suburbs.html')    
+                        data_to_insert.append(data)
+                if data_to_insert:
+                    statement = """
+                        INSERT INTO suburbs (constituency, council, suburb, density) 
+                        VALUES (%s, %s, %s, %s)
+                    """
+                    connection.populates(statement, data_to_insert)
+                    flash("The file was successfully uploaded")
+                    return render_template('rental/suburbs.html')    
             except Exception as e:
                 flash("An error occurred:", e)
                 return render_template('rental/suburbs.html')
@@ -233,10 +148,6 @@ def nsuburb():
         mimetype="application/zip",
         download_name="suburbs-upload-template.zip",
         as_attachment=True,)
-
-@app.route('/harare')
-def harare():
-   return render_template('rental/harare.html')
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():

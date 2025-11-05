@@ -1,69 +1,61 @@
 <!DOCTYPE html>
 <html>
-    <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="description" content="dunda">
     <meta name="author" content="T8">
     <link rel='shortcut icon' type='image/x-icon' href="{{ url_for('static',filename='pics/dunda.png') }}">
-    <head>
-             <!-- Bootstrap -->
-            <link type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css') }}" defer rel="stylesheet">
-            <!-- Bootstrap responsive -->
-            <link type= "text/css" href= "{{ url_for('static',filename='css/bootstrap-responsive.min.css') }}" defer rel="stylesheet">   
-            <!-- Fonts -->
-            <link type= "text/css" href= "{{ url_for('static',filename='font-awesome/./css/font-awesome.min.css') }}" defer rel="stylesheet">
-            <!-- Custom --> 
-            <link type= "text/css" href= "{{ url_for('static',filename='css/irent.css') }}" defer rel="stylesheet">          
-        <title>irent</title>
 
-</head>
+    <link type="text/css" href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link type="text/css" href="{{ url_for('static',filename='css/bootstrap-responsive.min.css') }}" rel="stylesheet">
+    <link type="text/css" href="{{ url_for('static',filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link type="text/css" href="{{ url_for('static',filename='css/irent.css') }}" rel="stylesheet">
+    
+    <title>irent</title>
 
-<body>
+</head> <body>
     <header>
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
 
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        
-                         <a class="navbar-brand" href="/edit">irent</a>
-                           
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="collapse">
-                            <ul class="nav navbar-nav">
-                                <li><a href="#"></a></li>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/edit">irent</a>
+                </div>
+                
+                <div class="collapse navbar-collapse" id="collapse">
+                
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">upload <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/suburbs">suburbs</a></li>
+                                <li><a href="/properties">properties</a></li>
                             </ul>
-                              
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="/signout">SIGNOUT</a></li>
-                            </ul>  
-                        </div>
-                   
-            </div>
-            </nav>   
-    
-    <!-- jQuery -->
-
-<script type="text/javascript" src= "{{ url_for('static',filename='js/jquery.js') }}" defer></script>
-<!-- Bootstrap -->
-<script type="text/javascript" src= "{{ url_for('static',filename='js/bootstrap.min.js') }}" defer></script>
-<!--Main JavaScript -->
-<script type="text/javascript" src= "{{ url_for('static',filename='js/irent.js') }}" defer></script>
-
+                        </li>
+                    </ul>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/signout">SIGNOUT</a></li>
+                    </ul>
+                    
+                </div></div>
+        </nav>
     </header>
 
+
     {% block body %}
-
-
     {% endblock %}
 
+    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery.js') }}" defer></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.min.js') }}" defer></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/irent.js') }}" defer></script>
 </body>
+</html>
