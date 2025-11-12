@@ -49,16 +49,16 @@ def pricepredication():
         file = request.files['file']
         try:
             input = pd.read_csv(file)
-            print(input.iloc[0, 0])
+            #print(input.iloc[0, 0])
             suburb = input.iloc[0, 0]
             record = connection.post("SELECT * FROM suburbs WHERE suburb = %s", (suburb,))
-            print(record)
+            #print(record)
             if record != None:
                 input.insert(10, 'council', record[1], True)
                 input.insert(9, 'constituency', record[2], True)
                 input.insert(1, 'density', record[4], True)     
-                print(record)   
-                print(input.tail())
+                #print(record)   
+                #print(input.tail())
                 output = predict.userInput(input)
                 return render_template('rental/output.html', price = output)
             else:
@@ -161,7 +161,7 @@ def signin():
         password = hash.hexdigest()
         # Fetch one record and return the result
         user = connection.post("SELECT * FROM users WHERE email = '{}' AND password = '{}'".format(email, password))
-        print(user)
+        # print(user)
         if user:   
             # Create session data, we can access this data in other routes
             session['loggedin'] = True

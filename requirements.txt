@@ -1,0 +1,12 @@
+flask
+tensorflow
+keras
+scikit-learn
+Flask-SQLAlchemy
+Flask-Migrate
+psycopg2-binary
+python-dotenv
+seaborn
+matplotlib
+pandas
+numpy

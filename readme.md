@@ -1,49 +1,82 @@
-requirements
-$ postgreSQL
-$ python
+# iRental - [A Short Description of Your Project]
+(e.g., "A Flask app to predict rental prices using a machine learning model.")
 
-libraries.
-$ pip install pickle
-$ pip install tensorflow
-$ pip install sklearn
-$ pip install keras
-$ pip install flask
+This application allows users to register, upload CSV data, and get price predictions.
 
-(On Mac/Linux)
-$ mkdir myproject
-$ cd myproject
-$ python3 -m venv .venv
-$ . .venv/bin/activate
-$ pip install Flask
+---
 
-(On Windows CMD)
-> mkdir myproject
-> cd myproject
-> py -3 -m venv .venv
-> .venv\Scripts\activate
-$ pip install Flask
+## 1. Prerequisites
 
-$ pip install --missing libraries check in errors--
+* Python 3.8+
+* PostgreSQL
 
-dropdb irental
-createdb irental
+---
 
-# This PostgreSQL command creates the empty database
-# (On Mac/Linux)
-export FLASK_APP=app.py
-#eg. export FLASK_APP=irent.py
-export DATABASE_URL='postgresql://postgres:password@localhost:5432/your_db_name'
-#eg.export DATABASE_URL='postgresql://tkagande:@127.0.0.1/irental'
+## 2. Setup and Installation
 
-# (On Windows CMD)
-set FLASK_APP=app.py
-#eg. set FLASK_APP=irent.py
-set DATABASE_URL="postgresql://postgres:password@localhost:5432/your_db_name"
-#eg.DATABASE_URL='postgresql://tkagande:@127.0.0.1/irental'
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/iamtatendakagande/irental.git](https://github.com/iamtatendakagande/irental.git)
+    cd irental
+    ```
 
-flask db init
-flask db migrate -m "first database creation"
-flask db upgrade
+2.  **Create and activate a virtual environment:**
+    (On Mac/Linux)
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate
+    ```
+    (On Windows)
+    ```bash
+    py -3 -m venv .venv
+    .venv\Scripts\activate
+    ```
 
-#run the application
-flask --app irent run  
+3.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Configure Environment Variables:**
+    Copy the example `.env.example` file to a new `.env` file.
+    ```bash
+    cp .env.example .env
+    ```
+    Now, open the `.env` file and add your database URL.
+
+    **Example `.env` file:**
+    ```
+    FLASK_APP=irent.py
+    DATABASE_URL='postgresql://tkagande:@127.0.0.1/irental'
+    ```
+
+5.  **Set up the Database:**
+    (Make sure your PostgreSQL server is running and you have created the empty database)
+    ```bash
+    # e.g., createdb irental
+    
+    flask db upgrade
+    ```
+    *(Note: `flask db init` is only run once. `flask db migrate` is for when you change models. A new user only needs to `upgrade`.)*
+
+---
+
+## 3. Running the Application
+    With your environment variables set and the database upgraded, run the app:
+
+    ```bash
+    flask run
+    ```
+
+## 4. How to Use the App
+    Navigate to http://127.0.0.1:5000/register to create a new user account.
+    Log in with your new account.
+
+    Go to the "Suburbs" page (/suburbs) to upload the required suburb data. (You can find an example CSV in /data_templates/suburbs.csv).
+    To get a prediction, go to the "Predict" page (/predict).
+    Download the prediction template , fill it out, and upload it to get your results.
+
+## 5. The ML Model
+    Option A The model can be re-trained [Keras/Scikit-Learn] model. The file is found is machine/model/HarareRentNeuralNetworkModel.py and will saved as machine/pickled/HarareRentNeuralNetworkModel.keras.
+
+    Option B: This project is already trained and the file is machine/pickled/HarareRentNeuralNetworkModel.keras.
