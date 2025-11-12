@@ -1,5 +1,8 @@
-# iRental - [A Short Description of Your Project]
-(e.g., "A Flask app to predict rental prices using a machine learning model.")
+# iRental - A House Price Prediction Model that uses Artificial Neural Network
+* The model was specifically made for Harare Metropolitan Province.
+* Other model are also saved in ./machine/model
+* Made by Tatenda Edmore Kagande.
+* For more information contact me on LinkedIn.
 
 This application allows users to register, upload CSV data, and get price predictions.
 
@@ -62,7 +65,7 @@ This application allows users to register, upload CSV data, and get price predic
 ---
 
 ## 3. Running the Application
-    With your environment variables set and the database upgraded, run the app:
+    # With your environment variables set and the database upgraded, run the app:
 
     ```bash
     flask run
@@ -77,6 +80,6 @@ This application allows users to register, upload CSV data, and get price predic
     Download the prediction template , fill it out, and upload it to get your results.
 
 ## 5. The ML Model
-    Option A The model can be re-trained [Keras/Scikit-Learn] model. The file is found is machine/model/HarareRentNeuralNetworkModel.py and will saved as machine/pickled/HarareRentNeuralNetworkModel.keras.
+    Option A The model can be re-trained [Keras/Scikit-Learn] model. The file is found is ./machine/model/HarareRentNeuralNetworkModel.py and will saved as ./machine/pickled/HarareRentNeuralNetworkModel.keras.
 
-    Option B: This project is already trained and the file is machine/pickled/HarareRentNeuralNetworkModel.keras.
+    Option B: This project is already trained and the file is ./machine/pickled/HarareRentNeuralNetworkModel.keras.
