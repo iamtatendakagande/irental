@@ -1,5 +1,6 @@
 # Import the necessary libraries.
 import pickle
+from tensorflow.keras.models import load_model 
 import pandas as pd
 
 # Create a machine learning model.
@@ -11,10 +12,8 @@ class predict:
     def userInput(input):
         try:
             preprocessed_input = predict.preprocess_text(input)
-            # load the model from disk
-            model = pickle.load(open("./machine/pickled/HarareRentNeuralNetworkModel.pkl", 'rb'))
+            model = load_model("./machine/pickled/HarareRentNeuralNetworkModel.keras")
             print("Processed text:",preprocessed_input)
-            
             output = model.predict(preprocessed_input)[0,0]
             return output     
         except Exception as e:
@@ -22,7 +21,6 @@ class predict:
     
     def preprocess_text(input):
         data = pd.read_csv('./machine/data/harare-metropolian-updated.csv', keep_default_na=False)
-
         data = data.astype({'rooms': 'int','bedroom': 'int', 'toilets':'int', 'ensuite':'int', 'carport':'int', 'cottage':'int'})
         input = input.astype({'rooms': 'int','bedroom': 'int', 'toilets':'int', 'ensuite':'int', 'carport':'int', 'cottage':'int'})
 

@@ -2,8 +2,12 @@ requirements
 $ postgreSQL
 $ python
 
-important but not requirements
-$ vscode with jupyter notebook
+libraries.
+$ pip install pickle
+$ pip install tensorflow
+$ pip install sklearn
+$ pip install keras
+$ pip install flask
 
 (On Mac/Linux)
 $ mkdir myproject

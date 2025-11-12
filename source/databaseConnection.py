@@ -53,11 +53,6 @@ class Database:
             return None
         
     def posts(self, query, params=None):
-        """For queries that fetch multiple rows (SELECT all)"""
-        if not self.connection:
-            print("Not connected to the database.")
-            return None
-            
         try:
             cursor = self.connection.cursor()
             cursor.execute(query, params)
@@ -69,15 +64,10 @@ class Database:
             print("Failed to execute query:", error)
             return None
         
-    def post(self, query):
-        """For queries that fetch a single row (SELECT one)"""
-        if not self.connection:
-            print("Not connected to the database.")
-            return None
-
+    def post(self, query, params=None):
         try:
             cursor = self.connection.cursor()
-            cursor.execute(query)
+            cursor.execute(query, params)
             result = cursor.fetchone()
             cursor.close()
             return result

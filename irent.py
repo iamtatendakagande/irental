@@ -6,13 +6,13 @@ import pandas as pd
 import csv
 from source.userInputNeuralNetwork import predict
 #from source.userInputGradientBoosting import predict
-
 from app import create_app
 
 # Create the app instance by calling the factory function
 app = create_app()
 
 if __name__ == '__main__':
+    app.run(host='0.0.0.0')
     app.run(debug=True)
 
 app = Flask(__name__, template_folder='./public')
@@ -51,7 +51,7 @@ def pricepredication():
             input = pd.read_csv(file)
             print(input.iloc[0, 0])
             suburb = input.iloc[0, 0]
-            record = connection.post("SELECT * FROM suburbs WHERE suburb = '{}'".format(suburb))
+            record = connection.post("SELECT * FROM suburbs WHERE suburb = %s", (suburb,))
             print(record)
             if record != None:
                 input.insert(10, 'council', record[1], True)
@@ -127,7 +127,7 @@ def suburbs():
                         data_to_insert.append(data)
                 if data_to_insert:
                     statement = """
-                        INSERT INTO suburbs (constituency, council, suburb, density) 
+                        INSERT INTO suburbs ( suburb, constituency, council, density) 
                         VALUES (%s, %s, %s, %s)
                     """
                     connection.populates(statement, data_to_insert)
@@ -159,7 +159,6 @@ def signin():
         hash = password + app.secret_key
         hash = hashlib.sha1(hash.encode())
         password = hash.hexdigest()
-
         # Fetch one record and return the result
         user = connection.post("SELECT * FROM users WHERE email = '{}' AND password = '{}'".format(email, password))
         print(user)
@@ -189,17 +188,11 @@ def signout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if (request.method == "POST"):
-        # Output message if something goes wrong...
         msg = ''
-        # Check if "email", "password" and "email" POST requests exist (user submitted form)
         name = request.form.get('name')
         password = request.form.get('password')
         email = request.form.get('email')
-
-        # Check if user exists using MySQL
         user =  connection.posts("SELECT * FROM users WHERE email = '{}'".format(email))
-        
-        # If user exists show error and validation checks
         if user:
             msg = 'user already exists!'
             flash(msg, 'error')
@@ -217,11 +210,9 @@ def register():
             flash(msg, 'error')
             return render_template('auth/register.html')
         else:
-            # Hash the password
             hash = password + app.secret_key
             hash = hashlib.sha1(hash.encode())
             password = hash.hexdigest()
-            # user doesn't exist, and the form data is valid, so insert the new user into the users table
             connection.populate("INSERT INTO users(name, email, password) VALUES ('{}','{}','{}')".format(name, email, password))
             msg = 'You have successfully registered!'
             flash(msg, 'success')

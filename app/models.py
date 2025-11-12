@@ -28,9 +28,9 @@ class Suburb(db.Model):
     __tablename__ = 'suburbs'
 
     id = db.Column(db.Integer, primary_key=True)
+    suburb = db.Column(db.String(45), nullable=False, unique=True)
     constituency = db.Column(db.String(35), nullable=False)
     council = db.Column(db.String(35), nullable=False)
-    suburb = db.Column(db.String(45), nullable=False)
     density = db.Column(db.String(45), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, server_default=db.func.now())
 
